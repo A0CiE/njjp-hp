@@ -1,0 +1,115 @@
+{
+  "a11y": {
+    "language": "切换语言"
+  },
+  "lang": {
+    "zh": "中文",
+    "en": "英语",
+    "ja": "日语"
+  },
+  "nav": {
+    "home": "首页",
+    "about": "介绍",
+    "categories": "品类与渠道",
+    "handbook": "标准手册",
+    "supply": "供应链&研发",
+    "digital": "价值链数字化",
+    "coop": "合作模式",
+    "founder": "创始人"
+  },
+  "hero": {
+    "tag": "NANJI E‑COMMERCE",
+    "title": "NANJI JAPAN 商社介绍",
+    "lead": "参照 PDF 封面色彩与构图，文字直接叠加在背景上；遮罩提高对比度，无卡片框。"
+  },
+  "about": {
+    "title": "南极电商是一家数据驱动的中国消费品领先品牌",
+    "lead": "以成为世界级消费品巨头为目标；以持续帮助中国制造业成功为愿景。",
+    "overview": "发展概览",
+    "overviewBody": "1998 年以 南极人 起步，后成长为多品牌平台；在基础款、内衣、家居服、外套等品类长期强势。",
+    "key": "关键数据",
+    "keyBody": "FY2020 净利润约 11 亿元人民币；规模优势带来较低平台成本。"
+  },
+  "categories": {
+    "metricTitle": "消费者基数",
+    "usersValue": "7.5",
+    "usersUnit": "亿人次",
+    "channelsTitle": "主力渠道",
+    "channels": [
+      "阿里",
+      "京东",
+      "拼多多",
+      "唯品会",
+      "抖音",
+      "快手"
+    ]
+  },
+  "handbook": {
+    "title": "NANJIDS STANDARD HANDBOOK",
+    "lead": "对应 PDF 的深色图片页，以深色背景替代；文字反白并靠右侧排版。",
+    "items": [
+      "品牌要素",
+      "商品规范",
+      "传播物料"
+    ],
+    "itemBodies": [
+      "Logo 安全区/缩放规范；色彩/字体使用；版式网格/留白。",
+      "吊牌与标签合规；尺码与成分标识；包装与印刷规范。",
+      "线上图/视频封面；线下 POP/海报；店装与道具基线。"
+    ]
+  },
+  "supply": {
+    "title": "供应链 & 产品研发",
+    "s1": "供应侧",
+    "p1": "严格遵循 CSR 与指南；上市公司信息透明与责任；品质稳定、规模效率。",
+    "s2": "产品侧",
+    "p2": "材料/工艺持续升级；研发—打样—量产闭环；质量追溯与抽检。"
+  },
+  "digital": {
+    "title": "价值链数字化",
+    "blocks": [
+      {
+        "title": "R&D digitalization",
+        "items": [
+          "Product design and development powered by machine learning",
+          "Market analysis powered by big data",
+          "Product selection powered by big data"
+        ]
+      },
+      {
+        "title": "Manufacturing digitalization",
+        "items": [
+          "Capacity and yield dashboards",
+          "Work-in-process tracking",
+          "Standardized process control"
+        ]
+      },
+      {
+        "title": "Logistics digitalization",
+        "items": [
+          "In-transit visibility",
+          "Warehouse and distribution collaboration",
+          "Fulfillment SLA monitoring"
+        ]
+      }
+    ]
+  },
+  "coop": {
+    "title": "合作模式",
+    "l1": "股权结构",
+    "p1": "双方成立合资公司，南极电商占股 60%，C&A 占股 40%。",
+    "l2": "资源投入",
+    "p2": "南极电商投入经营管理；C&A 投入品牌与线上销售权。",
+    "r1": "经营管理",
+    "rp1": "南极全权负责 C&A 品牌经营管理",
+    "r2": "利润分成",
+    "rp2": "C&A 将分享合资公司利润的 40%。"
+  },
+  "founder": {
+    "title": "Zhang Yuxiang",
+    "lead": "The Founder‘s Value: CONFIDENCE · TRUST · RELIABILITY · PARTNERSHIP"
+  },
+  "footer": {
+    "copyright": "© NANJI JAPAN · 静态演示（参照 PDF 视觉 / 文本覆盖背景）"
+  }
+}

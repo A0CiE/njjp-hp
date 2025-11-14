@@ -1,0 +1,115 @@
+{
+  "a11y": {
+    "language": "Change language"
+  },
+  "lang": {
+    "zh": "Chinese",
+    "en": "English",
+    "ja": "Japanese"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "categories": "Categories & Channels",
+    "handbook": "Standard Handbook",
+    "supply": "Supply & R&D",
+    "digital": "Digitalization",
+    "coop": "Cooperation",
+    "founder": "Founder"
+  },
+  "hero": {
+    "tag": "NANJI E‑COMMERCE",
+    "title": "NANJI JAPAN Overview",
+    "lead": "Text sits on the background with scrim for contrast, matching the PDF."
+  },
+  "about": {
+    "title": "A data‑driven leading Chinese consumer brand",
+    "lead": "Aiming to become a world‑class consumer giant; helping Chinese manufacturing succeed.",
+    "overview": "Overview",
+    "overviewBody": "Started with NANJIREN in 1998 and grew into a multi‑brand platform; strong across basics, underwear, loungewear, and outerwear.",
+    "key": "Key data",
+    "keyBody": "FY2020 net profit ~ RMB 1.1B; scale advantages reduce platform costs."
+  },
+  "categories": {
+    "metricTitle": "Consumer base",
+    "usersValue": "7.5",
+    "usersUnit": "hundred million visits",
+    "channelsTitle": "Main channels",
+    "channels": [
+      "Taobao",
+      "JD.com",
+      "Pinduoduo",
+      "Vipshop",
+      "Douyin",
+      "Kuaishou"
+    ]
+  },
+  "handbook": {
+    "title": "NANJIDS STANDARD HANDBOOK",
+    "lead": "Dark image page in PDF is represented with a dark background; right‑aligned reversed text.",
+    "items": [
+      "Brand elements",
+      "Product specifications",
+      "Marketing assets"
+    ],
+    "itemBodies": [
+      "Logo safe area / scaling; color & typography; layout grid & spacing.",
+      "Compliance of tags & labels; size & composition; packaging & printing.",
+      "Online visuals / video covers; offline POP & posters; store fixtures."
+    ]
+  },
+  "supply": {
+    "title": "Supply Chain & Product R&D",
+    "s1": "Supply side",
+    "p1": "CSR & guidelines; transparency & responsibility; stable quality & scale efficiency.",
+    "s2": "Product side",
+    "p2": "Materials & process upgrades; R&D→sampling→mass production; quality traceability & inspection."
+  },
+  "digital": {
+    "title": "Value chain digitalization",
+    "blocks": [
+      {
+        "title": "R&D digitalization",
+        "items": [
+          "Product design and development powered by machine learning",
+          "Market analysis powered by big data",
+          "Product selection powered by big data"
+        ]
+      },
+      {
+        "title": "Manufacturing digitalization",
+        "items": [
+          "Capacity and yield dashboards",
+          "Work‑in‑process tracking",
+          "Standardized process control"
+        ]
+      },
+      {
+        "title": "Logistics digitalization",
+        "items": [
+          "In‑transit visibility",
+          "Warehouse & distribution collaboration",
+          "Fulfillment SLA monitoring"
+        ]
+      }
+    ]
+  },
+  "coop": {
+    "title": "Cooperation Model",
+    "l1": "Equity structure",
+    "p1": "Establish a JV: NANJI 60%, C&A 40%.",
+    "l2": "Resource input",
+    "p2": "NANJI: operations management; C&A: brand and online sales rights.",
+    "r1": "Operations",
+    "rp1": "NANJI fully manages C&A brand operations",
+    "r2": "Profit sharing",
+    "rp2": "C&A receives 40% of JV profit."
+  },
+  "founder": {
+    "title": "Zhang Yuxiang",
+    "lead": "The Founder‘s Value: CONFIDENCE · TRUST · RELIABILITY · PARTNERSHIP"
+  },
+  "footer": {
+    "copyright": "© NANJI JAPAN · React Native (Expo) build (i18n)"
+  }
+}
