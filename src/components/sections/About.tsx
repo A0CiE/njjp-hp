@@ -1,30 +1,101 @@
+import React from 'react';
+import { View, Text, useWindowDimensions } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Section, { SectionProps } from "./Section";
-import { useTranslation } from "react-i18next";
+import styles from '../styles/pageStyles';
+import Stage from '../layout/Stage';
+import { typeScale } from '../../theme';
 
-export default function About({ id, onLayout }: SectionProps){
-  const { t } = useTranslation();
-  return (
-    <Section id={id} onLayout={onLayout}>
-      <View style={styles.card}>
-        <Text style={styles.h2}>{t("aboutTitle")}</Text>
-        <Text style={styles.lead}>{t("aboutLead")}</Text>
-        <View style={styles.rule}/>
-        <Text style={styles.h3}>发展概览</Text>
-        <Text>1998 年以 <Text style={{fontWeight:"bold"}}>南极人</Text> 起步，后成长为多品牌平台；在基础款、内衣、家居服、外套等品类长期强势。</Text>
-        <Text style={styles.h3}>关键数据</Text>
-        <Text>FY2020 净利润约 <Text style={{fontWeight:"bold"}}>11 亿元人民币</Text>；规模优势带来较低平台成本。</Text>
-      </View>
-    </Section>
-  );
+const aboutImage = require('../../assets/about-bg.jpg');
+
+const About: React.FC = () => {
+    const { t } = useTranslation();
+    const { width } = useWindowDimensions();
+
+    const sizes = {
+        h2: typeScale.h2(width),
+        h3: typeScale.h3(width),
+        lead: typeScale.lead(width),
+    };
+
+    return (
+        <Stage bg="light" scrim="right" align="center" valign="middle" bgImage={aboutImage}>
+            <View style={styles.wrap}>
+                <Text
+                    style={[
+                        styles.h2,
+                        {
+                            textAlign: 'center',
+                            fontSize: sizes.h2,
+                            lineHeight: Math.round(sizes.h2 * 1.18),
+                        },
+                    ]}
+                >
+                    {t('about.title')}
+                </Text>
+
+                <Text
+                    style={[
+                        styles.lead,
+                        { textAlign: 'center', fontSize: sizes.lead },
+                    ]}
+                >
+                    {t('about.lead')}
+                </Text>
+
+                <View
+                    style={[
+                        styles.rule,
+                        { backgroundColor: '#cbd5e1' },
+                    ]}
+                />
+
+                <Text
+                    style={[
+                        styles.h3,
+                        {
+                            textAlign: 'center',
+                            fontSize: sizes.h3,
+                            lineHeight: Math.round(sizes.h3 * 1.25),
+                        },
+                    ]}
+                >
+                    {t('about.overview')}
+                </Text>
+
+                <Text
+                    style={[
+                        styles.p,
+                        { textAlign: 'center', fontSize: sizes.lead },
+                    ]}
+                >
+                    {t('about.overviewBody')}
+                </Text>
+
+                <Text
+                    style={[
+                        styles.h3,
+                        {
+                            textAlign: 'center',
+                            fontSize: sizes.h3,
+                            lineHeight: Math.round(sizes.h3 * 1.25),
+                        },
+                    ]}
+                >
+                    {t('about.key')}
+                </Text>
+
+                <Text
+                    style={[
+                        styles.p,
+                        { textAlign: 'center', fontSize: sizes.lead },
+                    ]}
+                >
+                    {t('about.keyBody')}
+                </Text>
+            </View>
+        </Stage>
+    );
 }
 
-const styles = StyleSheet.create({
-  card: { backgroundColor: "#eef2f7", borderRadius: 14, padding: 20 },
-  h2: { fontSize: 22, fontWeight: "900", textAlign: "center" },
-  lead: { marginTop: 8, color: "#4b5563", textAlign: "center" },
-  rule: { height: 1, backgroundColor: "#cbd5e1", marginVertical: 14 },
-  h3: { fontSize: 16, fontWeight: "800", marginTop: 10, textAlign: "center" }
-});
+export default About;

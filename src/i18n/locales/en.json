@@ -11,16 +11,17 @@
     "home": "Home",
     "about": "About",
     "categories": "Categories & Channels",
-    "handbook": "Standard Handbook",
+    "services": "Services",
+    "handbook": "Company",
     "supply": "Supply & R&D",
     "digital": "Digitalization",
     "coop": "Cooperation",
     "founder": "Founder"
   },
   "hero": {
-    "tag": "NANJI E‑COMMERCE",
-    "title": "NANJI JAPAN Overview",
-    "lead": "Text sits on the background with scrim for contrast, matching the PDF."
+    "tag": "Nanji E-commerce Japan Branch",
+    "title": "About NANJI JAPAN",
+    "lead": "Japanese planning, Chinese manufacturing power."
   },
   "about": {
     "title": "A data‑driven leading Chinese consumer brand",
@@ -29,6 +30,37 @@
     "overviewBody": "Started with NANJIREN in 1998 and grew into a multi‑brand platform; strong across basics, underwear, loungewear, and outerwear.",
     "key": "Key data",
     "keyBody": "FY2020 net profit ~ RMB 1.1B; scale advantages reduce platform costs."
+  },
+  "services": {
+    "title": "Services",
+    "items": [
+      {
+        "title": "One-stop Production Support",
+        "desc": "On-site, end-to-end support from planning to production for Japanese apparel brands."
+      },
+      {
+        "title": "Co-development",
+        "desc": "In partnership with leading Chinese suppliers, we achieve rapid commercialization through functional fabric R&D, design, and optimization."
+      },
+      {
+        "title": "Apparel Wholesale",
+        "desc": "Wholesale for retailers covering shipment management, margin/payment terms, returns/defect handling, and **marketing support (sample lending / product data / POP)**."
+      }
+    ]
+  },
+  "handbook": {
+    "title": "About our Company",
+    "lead": "NJ Corporation is an innovative trading and service company established with investment from a publicly listed Chinese company, dedicated to providing “one-stop, on-site supply chain solutions” for Japanese SMEs and apparel brands.",
+    "items": [
+      "Company Background",
+      "Service Positioning",
+      "Core Mission"
+    ],
+    "itemBodies": [
+      "NJ Corporation was founded with investment from a publicly listed Chinese company. Backed by solid capital strength and extensive supply-chain resources in China, it serves as an innovative trading service platform for the Japanese market.",
+      "We focus on providing “one-stop, on-site supply chain solutions” for Japanese SMEs and apparel brands, accompanying clients from planning and sampling all the way through production and delivery.",
+      "Positioned as a “next-generation trading company,” we are committed to becoming the most trusted Chinese supply-chain partner for Japanese businesses."
+    ]
   },
   "categories": {
     "metricTitle": "Consumer base",
@@ -106,10 +138,26 @@
     "rp2": "C&A receives 40% of JV profit."
   },
   "founder": {
-    "title": "Zhang Yuxiang",
-    "lead": "The Founder‘s Value: CONFIDENCE · TRUST · RELIABILITY · PARTNERSHIP"
+    "greetingTitle": "Message from the CEO",
+    "greetingBody": "We are committed to deeply integrating China’s strong supply-chain resources with the sophisticated needs of the Japanese market, working together with our clients to create high-quality, reasonably priced apparel so that Japanese consumers can enjoy great products at fair prices, while delivering sustainable, long-term value to our partners.",
+    "ceoTitle": "CEO",
+    "ceoName": "Zhang Yuxiang",
+    "mvTitle": "Management Philosophy",
+    "value1": "CONFIDENCE",
+    "value2": "TRUST",
+    "value3": "RELIABILITY",
+    "value4": "PARTNERSHIP"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "sub": "Feel free to contact us regarding our products and services.",
+    "telLabel": "TEL.",
+    "telNumber": "080-2505-3211",
+    "hours": "Business hours: Weekdays 9:00–17:30",
+    "note": "Excluding Golden Week, summer holidays, New Year holidays, and our designated days off.",
+    "mailCta": "Click here to contact us by email"
   },
   "footer": {
-    "copyright": "© NANJI JAPAN · React Native (Expo) build (i18n)"
+    "copyright": "© NANJI JAPAN"
   }
 }

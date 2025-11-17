@@ -1,34 +1,77 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Section, { SectionProps } from "./Section";
-import { useTranslation } from "react-i18next";
+import React, {useMemo} from 'react';
+import {
+    View,
+    Text,
+    useWindowDimensions,
+} from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-export default function Digital({ id, onLayoutSection }: SectionProps){
-  const { t } = useTranslation();
-  const items = t("digital", { returnObjects: true }) as any[];
-  return (
-    <Section id={id} onLayoutSection={onLayoutSection}>
-      <Text style={styles.h2}>{t("digitalTitle")}</Text>
-      <View style={styles.list}>
-        {items.map((it, idx)=> (
-          <View key={idx} style={styles.item}>
-            <View style={styles.thumb}/>
-            <View style={{flex:1}}>
-              <Text style={styles.title}>{it.title}</Text>
-              {it.bullets.map((b:string)=> (<Text key={b} style={styles.bullet}>• {b}</Text>))}
+import Stage from '../layout/Stage';
+import styles from '../styles/pageStyles';
+import { typeScale } from '../../theme';
+
+const Digital: React.FC = () => {
+    const { t } = useTranslation();
+    const { width } = useWindowDimensions();
+
+    const sizes = {
+        h2: typeScale.h2(width),
+        h3: typeScale.h3(width),
+        lead: typeScale.lead(width),
+    };
+
+    const blocks = useMemo(()=>{
+        const raw = t('digital.blocks', { returnObjects:true }) as unknown;
+        return Array.isArray(raw) ? raw as { title:string; items:string[] }[] : [];
+    }, [t]);
+
+    return (
+        <Stage bg="light" align="center" valign="middle" slim>
+            <View>
+                <Text
+                    style={[
+                        styles.h2,
+                        {
+                            textAlign: 'center',
+                            fontSize: sizes.h2,
+                            lineHeight: Math.round(sizes.h2 * 1.18),
+                        },
+                    ]}
+                >
+                    {t('digital.title')}
+                </Text>
+
+                <View style={styles.dList}>
+                    {blocks.map((blk) => (
+                        <View key={blk.title} style={styles.dItem}>
+                            <View style={styles.dThumb} />
+                            <View style={{ flex: 1 }}>
+                                <Text
+                                    style={[
+                                        styles.dTitle,
+                                        { fontSize: sizes.h3, textAlign: 'left' },
+                                    ]}
+                                >
+                                    {blk.title}
+                                </Text>
+                                {blk.items.map((it, idx) => (
+                                    <Text
+                                        key={idx}
+                                        style={[
+                                            styles.lead,
+                                            { fontSize: sizes.lead, textAlign: 'left' },
+                                        ]}
+                                    >
+                                        • {it}
+                                    </Text>
+                                ))}
+                            </View>
+                        </View>
+                    ))}
+                </View>
             </View>
-          </View>
-        ))}
-      </View>
-    </Section>
-  );
+        </Stage>
+    );
 }
 
-const styles = StyleSheet.create({
-  h2:{ fontSize:22, fontWeight:"900", marginBottom: 10, textAlign: "center" },
-  list:{ gap: 12 },
-  item:{ flexDirection:"row", gap: 10 },
-  thumb:{ width: 72, height: 56, borderRadius:8, backgroundColor: "#d1d5db" },
-  title:{ color:"#df2b2b", fontWeight:"800" },
-  bullet:{ color: "#374151", marginTop: 2 }
-});
+export default Digital;

@@ -25,3 +25,16 @@ export const typeScale = {
   metricNum: (w:number)=> clamp(100, w*0.12, 180),
   metricUnit: (w:number)=> clamp(22, w*0.03, 40),
 };
+
+export const layout = {
+    maxWidth: 1200,
+    navHeight: 56,
+    radiusLg: 18,
+    radiusMd: 12,
+    radiusSm: 8,
+    spacingXs: 6,
+    spacingSm: 10,
+    spacingMd: 16,
+    spacingLg: 24,
+    spacingXl: 32,
+};

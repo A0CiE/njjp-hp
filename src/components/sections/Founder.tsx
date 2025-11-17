@@ -1,29 +1,196 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Section, { SectionProps } from "./Section";
-import { LinearGradient } from "expo-linear-gradient";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-export default function Founder({ id, onLayoutSection }: SectionProps){
-  const { t } = useTranslation();
-  return (
-    <Section id={id} onLayoutSection={onLayoutSection}>
-      <View style={styles.stage}>
-        <LinearGradient colors={["#5f6d7b","#2e333a","#16191f"]} start={{x:0.2,y:0.4}} end={{x:1,y:1}} style={StyleSheet.absoluteFillObject}/>
-        <View style={styles.scrim}/>
-        <View style={styles.copy}>
-          <Text style={styles.h2}>{t("founderTitle")}</Text>
-          <Text style={styles.lead}>The Founder‘s Value: CONFIDENCE · TRUST · RELIABILITY · PARTNERSHIP</Text>
-        </View>
-      </View>
-    </Section>
-  );
-}
+import Stage from '../layout/Stage';
+import pageStyles from '../styles/pageStyles';
+import { colors, typeScale } from '../../theme';
+
+const Founder: React.FC = () => {
+    const { t } = useTranslation();
+    const ww = typeof window === 'undefined' ? 1200 : window.innerWidth;
+
+    const sizes = {
+        h2: typeScale.h2(ww),
+        h3: typeScale.h3(ww),
+        lead: typeScale.lead(ww),
+    };
+
+    const values = [
+        t('founder.value1'),
+        t('founder.value2'),
+        t('founder.value3'),
+        t('founder.value4'),
+    ];
+
+    return (
+        <Stage
+            bg="light"
+            align="center"
+            valign="top"
+            flow
+            minFull={false}
+        >
+            <View style={styles.outer}>
+                <View style={styles.panel}>
+                    <View style={styles.greetingBlock}>
+                        <View style={styles.sectionTitleRow}>
+                            <View style={styles.redBar} />
+                            <Text
+                                style={[
+                                    pageStyles.h3,
+                                    styles.sectionTitle,
+                                    { fontSize: sizes.h3 },
+                                ]}
+                            >
+                                {t('founder.greetingTitle')}
+                            </Text>
+                        </View>
+
+                        <Text
+                            style={[
+                                pageStyles.p,
+                                styles.body,
+                                { fontSize: sizes.lead },
+                            ]}
+                        >
+                            {t('founder.greetingBody')}
+                        </Text>
+
+                        <View style={styles.signatureRow}>
+                            <Text
+                                style={[
+                                    pageStyles.p,
+                                    { fontSize: sizes.lead },
+                                ]}
+                            >
+                                {t('founder.ceoTitle')} {t('founder.ceoName')}
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.dividerSpace} />
+
+                    <View style={styles.mvBlock}>
+                        <View style={styles.sectionTitleRow}>
+                            <View style={styles.redBar} />
+                            <Text
+                                style={[
+                                    pageStyles.h3,
+                                    styles.sectionTitle,
+                                    { fontSize: sizes.h3 },
+                                ]}
+                            >
+                                {t('founder.mvTitle')}
+                            </Text>
+                        </View>
+
+                        <View style={styles.mvRow}>
+                            <Text
+                                style={[
+                                    styles.valueLabel,
+                                    { fontSize: sizes.h2 },
+                                ]}
+                            >
+                                VALUE
+                            </Text>
+
+                            <View style={styles.valuesCol}>
+                                {values.map((val, idx) => (
+                                    <Text
+                                        key={`${val}-${idx}`}
+                                        style={[
+                                            pageStyles.h3,
+                                            styles.valueText,
+                                            { fontSize: sizes.lead + 2 },
+                                        ]}
+                                    >
+                                        {val}
+                                    </Text>
+                                ))}
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        </Stage>
+    );
+};
 
 const styles = StyleSheet.create({
-  stage:{ height: 240, borderRadius: 12, overflow: "hidden" },
-  scrim:{ ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.28)" },
-  copy:{ flex:1, padding: 20, justifyContent:"center" },
-  h2:{ color: "#fff", fontWeight:"900", fontSize: 20 },
-  lead:{ color: "#e5e7eb", marginTop: 6 }
+    outer: {
+        width: '100%',
+        alignItems: 'center',
+        paddingVertical: 40,
+    },
+    panel: {
+        width: '100%',
+        maxWidth: 960,
+        backgroundColor: '#ffffff',
+        borderRadius: 18,
+        paddingHorizontal: 40,
+        paddingVertical: 40,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.06,
+        shadowRadius: 18,
+        elevation: 4,
+    },
+
+    greetingBlock: {
+        marginBottom: 12,
+    },
+    sectionTitleRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 18,
+    },
+    redBar: {
+        width: 32,
+        height: 2,
+        backgroundColor: colors.brand,
+        marginRight: 8,
+    },
+    sectionTitle: {
+        marginTop: 0,
+        marginBottom: 0,
+    },
+    body: {
+        lineHeight: 22,
+    },
+    signatureRow: {
+        marginTop: 24,
+        alignSelf: 'flex-end',
+    },
+
+    dividerSpace: {
+        height: 32,
+    },
+
+    mvBlock: {
+        borderTopWidth: 1,
+        borderTopColor: '#e5e7eb',
+        paddingTop: 24,
+    },
+    mvRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginTop: 8,
+    },
+    valueLabel: {
+        color: colors.brand,
+        fontWeight: '900',
+        letterSpacing: 3,
+        marginRight: 24,
+    },
+    valuesCol: {
+        flex: 1,
+    },
+    valueText: {
+        marginBottom: 6,
+        marginTop: 0,
+        color: colors.ink,
+    },
 });
+
+export default Founder;

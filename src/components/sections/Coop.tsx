@@ -1,34 +1,137 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Section, { SectionProps } from "./Section";
+import React from 'react';
+import {
+    View,
+    Text,
+    useWindowDimensions,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useTranslation } from 'react-i18next';
 
-export default function Coop({ id, onLayoutSection }: SectionProps){
-  return (
-    <Section id={id} onLayoutSection={onLayoutSection}>
-      <View style={styles.row}>
-        <View style={styles.col}>
-          <Text style={styles.h2}>合作模式</Text>
-          <Text style={styles.h3}>股权结构</Text>
-          <Text>成立合资公司：南极 60%，C&A 40%。</Text>
-          <Text style={styles.h3}>资源投入</Text>
-          <Text>南极：经营管理；C&A：品牌与线上销售权。</Text>
-        </View>
-        <View style={styles.divider} />
-        <View style={styles.col}>
-          <Text style={styles.h3}>经营管理</Text>
-          <Text>南极全权负责 C&A 品牌经营管理</Text>
-          <Text style={styles.h3}>利润分成</Text>
-          <Text>C&A 分享 40% 利润。</Text>
-        </View>
-      </View>
-    </Section>
-  );
+import Stage from '../layout/Stage';
+import styles from '../styles/pageStyles';
+import { typeScale } from '../../theme';
+
+const Coop: React.FC = () => {
+    const { t } = useTranslation();
+    const { width } = useWindowDimensions();
+
+    const sizes = {
+        h2: typeScale.h2(width),
+        h3: typeScale.h3(width),
+        lead: typeScale.lead(width),
+    };
+
+    return (
+        <Stage bg="light" align="center" valign="middle" slim>
+            <View style={styles.coopRow}>
+                <View style={{ flex: 1 }}>
+                    <Text
+                        style={[
+                            styles.h2,
+                            {
+                                textAlign: 'center',
+                                fontSize: sizes.h2,
+                                lineHeight: Math.round(sizes.h2 * 1.18),
+                            },
+                        ]}
+                    >
+                        {t('coop.title')}
+                    </Text>
+
+                    <Text
+                        style={[
+                            styles.h3,
+                            {
+                                textAlign: 'center',
+                                fontSize: sizes.h3,
+                                lineHeight: Math.round(sizes.h3 * 1.25),
+                            },
+                        ]}
+                    >
+                        {t('coop.l1')}
+                    </Text>
+                    <Text
+                        style={[
+                            styles.p,
+                            { textAlign: 'center', fontSize: sizes.lead },
+                        ]}
+                    >
+                        {t('coop.p1')}
+                    </Text>
+
+                    <Text
+                        style={[
+                            styles.h3,
+                            {
+                                textAlign: 'center',
+                                fontSize: sizes.h3,
+                                lineHeight: Math.round(sizes.h3 * 1.25),
+                            },
+                        ]}
+                    >
+                        {t('coop.l2')}
+                    </Text>
+                    <Text
+                        style={[
+                            styles.p,
+                            { textAlign: 'center', fontSize: sizes.lead },
+                        ]}
+                    >
+                        {t('coop.p2')}
+                    </Text>
+                </View>
+
+                <LinearGradient
+                    colors={['#f87171', '#b91c1c']}
+                    style={styles.coopDivider}
+                />
+
+                <View style={{ flex: 1, marginTop: 44 }}>
+                    <Text
+                        style={[
+                            styles.h3,
+                            {
+                                textAlign: 'center',
+                                fontSize: sizes.h3,
+                                lineHeight: Math.round(sizes.h3 * 1.25),
+                            },
+                        ]}
+                    >
+                        {t('coop.r1')}
+                    </Text>
+                    <Text
+                        style={[
+                            styles.p,
+                            { textAlign: 'center', fontSize: sizes.lead },
+                        ]}
+                    >
+                        {t('coop.rp1')}
+                    </Text>
+
+                    <Text
+                        style={[
+                            styles.h3,
+                            {
+                                textAlign: 'center',
+                                fontSize: sizes.h3,
+                                lineHeight: Math.round(sizes.h3 * 1.25),
+                            },
+                        ]}
+                    >
+                        {t('coop.r2')}
+                    </Text>
+                    <Text
+                        style={[
+                            styles.p,
+                            { textAlign: 'center', fontSize: sizes.lead },
+                        ]}
+                    >
+                        {t('coop.rp2')}
+                    </Text>
+                </View>
+            </View>
+        </Stage>
+    );
 }
 
-const styles = StyleSheet.create({
-  row:{ flexDirection:"row", gap: 16, alignItems: "flex-start" },
-  col:{ flex:1 },
-  divider:{ width: 8, borderRadius:4, backgroundColor: "#b91c1c", height: "100%" },
-  h2:{ fontSize:20, fontWeight:"900", marginBottom: 8 },
-  h3:{ fontSize:16, fontWeight:"800", marginTop: 8 }
-});
+export default Coop;

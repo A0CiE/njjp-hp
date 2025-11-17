@@ -1,39 +1,163 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Section, { SectionProps } from "./Section";
-import { LinearGradient } from "expo-linear-gradient";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useRef} from 'react';
+import {
+    View,
+    Text,
+    useWindowDimensions,
+    Animated,
+    LayoutChangeEvent,
+} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
-export default function Handbook({ id, onLayoutSection, scrollY }: SectionProps & { scrollY: number }){
-  const { t } = useTranslation();
-  return (
-    <Section id={id} onLayoutSection={onLayoutSection}>
-      <View style={styles.stage}>
-        <LinearGradient colors={["#2f3340","#4b5563"]} style={StyleSheet.absoluteFillObject}/>
-        <View style={styles.scrim}/>
-        <View style={styles.copy}>
-          <Text style={styles.h2}>{t("handbookTitle")}</Text>
-          <Text style={styles.lead}>深色背景替代图片；文字反白并靠右侧排版，同时保留渐变背景。</Text>
-          <View style={styles.rule}/>
-          <Text style={styles.h3}>品牌要素</Text>
-          <Text style={styles.p}>Logo 规范 / 色彩 / 字体 / 网格留白。</Text>
-          <Text style={styles.h3}>商品规范</Text>
-          <Text style={styles.p}>标签与尺码合规；包装与印刷规范。</Text>
-          <Text style={styles.h3}>传播物料</Text>
-          <Text style={styles.p}>线上封面与线下 POP/海报/道具。</Text>
-        </View>
-      </View>
-    </Section>
-  );
-}
+import Stage from '../layout/Stage';
+import styles from '../styles/pageStyles';
+import {typeScale} from '../../theme';
 
-const styles = StyleSheet.create({
-  stage:{ height: 340, borderRadius: 12, overflow: "hidden" },
-  scrim:{ ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.25)" },
-  copy:{ flex:1, padding: 20, alignItems: "flex-end", justifyContent: "center" },
-  h2:{ color: "#fff", fontWeight:"900", fontSize: 22 },
-  lead:{ color: "#e5e7eb", marginTop: 6 },
-  rule:{ height:1, backgroundColor: "rgba(255,255,255,0.2)", alignSelf:"stretch", marginVertical: 10 },
-  h3:{ color: "#fff", fontWeight:"800", marginTop: 6, alignSelf:"flex-end" },
-  p:{ color: "#e5e7eb", alignSelf:"flex-end" }
-});
+const companyImage = require('../../assets/company-bg.jpg');
+
+type HandbookProps = {
+    scrollY?: Animated.Value;
+};
+
+const Handbook: React.FC<HandbookProps> = ({scrollY}) => {
+    const {t} = useTranslation();
+    const {width, height} = useWindowDimensions();
+
+    const sizes = {
+        h2: typeScale.h2(width),
+        h3: typeScale.h3(width),
+        lead: typeScale.lead(width),
+    };
+
+    const anim = useRef(new Animated.Value(0)).current;
+    const sectionTopRef = useRef(0);
+    const hasAnimatedRef = useRef(false);
+
+    const opacity = anim;
+    const translateY = anim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [24, 0],
+    });
+
+    const onLayout = (e: LayoutChangeEvent) => {
+        sectionTopRef.current = e.nativeEvent.layout.y;
+    };
+
+    useEffect(() => {
+        if (!scrollY) {
+            Animated.timing(anim, {
+                toValue: 1,
+                duration: 600,
+                useNativeDriver: true,
+            }).start();
+            return;
+        }
+
+        const id = scrollY.addListener(({value}) => {
+            if (hasAnimatedRef.current) return;
+
+            const sectionTop = sectionTopRef.current;
+            const triggerPoint = sectionTop - height * 0.8; // 提前一点点触发
+
+            if (value >= triggerPoint) {
+                hasAnimatedRef.current = true;
+                Animated.timing(anim, {
+                    toValue: 1,
+                    duration: 650,
+                    useNativeDriver: true,
+                }).start();
+            }
+        });
+
+        return () => {
+            scrollY.removeListener(id);
+        };
+    }, [scrollY, height, anim]);
+
+    return (
+        <Animated.View
+            onLayout={onLayout}
+            style={{opacity, transform: [{translateY}]}}
+        >
+            <Stage
+                bg="dark"
+                scrim="right"
+                align="center"
+                valign="middle"
+                bgImage={companyImage}
+                bgImageStyle={{
+                    width: '120%',
+                    height: '120%',
+                    ...( { objectPosition: 'right center' } as any ),
+                }}
+            >
+                <View>
+                    <Text
+                        style={[
+                            styles.h2,
+                            {
+                                color: '#e5e7eb',
+                                textAlign: 'center',
+                                fontSize: sizes.h2,
+                                lineHeight: Math.round(sizes.h2 * 1.18),
+                            },
+                        ]}
+                    >
+                        {t('handbook.title')}
+                    </Text>
+
+                    <Text
+                        style={[
+                            styles.lead,
+                            {
+                                color: '#94a3b8',
+                                textAlign: 'center',
+                                fontSize: sizes.lead,
+                            },
+                        ]}
+                    >
+                        {t('handbook.lead')}
+                    </Text>
+
+                    <View
+                        style={[
+                            styles.rule,
+                            {backgroundColor: 'rgba(255,255,255,.18)'},
+                        ]}
+                    />
+
+                    {['0', '1', '2'].map((i) => (
+                        <View key={i} style={{marginBottom: 6}}>
+                            <Text
+                                style={[
+                                    styles.h3,
+                                    {
+                                        color: '#e5e7eb',
+                                        textAlign: 'center',
+                                        fontSize: sizes.h3,
+                                        lineHeight: Math.round(sizes.h3 * 1.25),
+                                    },
+                                ]}
+                            >
+                                {t(`handbook.items.${i}`)}
+                            </Text>
+                            <Text
+                                style={[
+                                    styles.p,
+                                    {
+                                        color: '#e5e7eb',
+                                        textAlign: 'center',
+                                        fontSize: sizes.lead,
+                                    },
+                                ]}
+                            >
+                                {t(`handbook.itemBodies.${i}`)}
+                            </Text>
+                        </View>
+                    ))}
+                </View>
+            </Stage>
+        </Animated.View>
+    );
+};
+
+export default Handbook;
