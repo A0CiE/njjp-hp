@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
 
 import Stage from '../layout/Stage';
 import pageStyles from '../styles/pageStyles';
-import {colors, layout, typeScale} from '../../theme';
+import {colors, layout, typeScale, metrics} from '../../theme';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -29,6 +29,8 @@ const Services: React.FC = () => {
     }[];
 
     const ww = typeof window === 'undefined' ? 1200 : window.innerWidth;
+    const isMobile = ww <= metrics.bpSm;
+
     const sizes = {
         h2: typeScale.h2(ww),
         cardTitle: typeScale.dTitle(ww),
@@ -36,7 +38,7 @@ const Services: React.FC = () => {
     };
 
     const scalesRef = useRef<Animated.Value[]>(
-        items.map(() => new Animated.Value(1))
+        items.map(() => new Animated.Value(1)),
     );
     const scales = scalesRef.current;
 
@@ -60,13 +62,12 @@ const Services: React.FC = () => {
                                 fontSize: sizes.h2,
                                 lineHeight: Math.round(sizes.h2 * 1.18),
                             },
-                        ]}
-                    >
+                        ]}>
                         {t('services.title')}
                     </Text>
                 </View>
 
-                <View style={styles.grid}>
+                <View style={[styles.grid, isMobile && styles.gridStack]}>
                     {items.map((item, index) => {
                         const scale = scales[index];
                         const bgSource =
@@ -76,39 +77,44 @@ const Services: React.FC = () => {
                             <AnimatedPressable
                                 key={index}
                                 activeOpacity={0.9}
-                                style={[styles.card, {transform: [{scale}]}]}
+                                style={[
+                                    styles.card,
+                                    isMobile && styles.cardStack,
+                                    {transform: [{scale}]},
+                                ]}
                                 onHoverIn={() => animateScale(index, 1.03)}
                                 onHoverOut={() => animateScale(index, 1)}
                                 onPressIn={() => animateScale(index, 1.03)}
-                                onPressOut={() => animateScale(index, 1)}
-                            >
+                                onPressOut={() => animateScale(index, 1)}>
+
                                 <ImageBackground
                                     source={bgSource}
                                     style={styles.cardBg}
                                     imageStyle={styles.cardBgImage}
                                     resizeMode="cover"
-                                >
-                                    <View style={styles.overlay}/>
-                                    <View style={styles.cardContent}>
-                                        <Text
-                                            style={[
-                                                styles.cardTitle,
-                                                {fontSize: sizes.cardTitle},
-                                            ]}
-                                        >
-                                            {item.title}
-                                        </Text>
-                                        <Text
-                                            style={[
-                                                pageStyles.lead,
-                                                styles.cardDesc,
-                                                {fontSize: sizes.lead},
-                                            ]}
-                                        >
-                                            {item.desc}
-                                        </Text>
-                                    </View>
-                                </ImageBackground>
+                                />
+
+                                {/* 遮罩：绝对铺满整个卡片 */}
+                                <View style={styles.overlay} />
+
+                                {/* 文本内容：在最上层 */}
+                                <View style={styles.cardContent}>
+                                    <Text
+                                        style={[
+                                            styles.cardTitle,
+                                            {fontSize: sizes.cardTitle},
+                                        ]}>
+                                        {item.title}
+                                    </Text>
+                                    <Text
+                                        style={[
+                                            pageStyles.lead,
+                                            styles.cardDesc,
+                                            {fontSize: sizes.lead},
+                                        ]}>
+                                        {item.desc}
+                                    </Text>
+                                </View>
                             </AnimatedPressable>
                         );
                     })}
@@ -123,44 +129,64 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 22,
     },
+
     grid: {
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    gridStack: {
+        flexDirection: 'column',
+    },
+
     card: {
+        position: 'relative',
         flex: 1,
         marginHorizontal: 6,
         borderRadius: layout.radiusLg,
         overflow: 'hidden',
+        minHeight: 200,
+        backgroundColor: '#f9fafb',
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 6},
         shadowOpacity: 0.08,
         shadowRadius: 12,
         elevation: 3,
     },
-    cardBg: {
+    cardStack: {
         flex: 1,
+        width: '100%',
+        marginHorizontal: 0,
+        marginBottom: 16,
+    },
+
+    cardBg: {
+        ...StyleSheet.absoluteFillObject,
     },
     cardBgImage: {
-        borderRadius: layout.radiusLg,
+        width: '100%',
+        height: '100%',
     },
+
     overlay: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: 'rgba(248,250,252,0.88)',
     },
+
     cardContent: {
         paddingHorizontal: 20,
         paddingVertical: 20,
-        flex: 1,
+        minHeight: 200,
         justifyContent: 'space-between',
     },
+
     cardTitle: {
         fontWeight: '900',
         marginBottom: 6,
         color: colors.ink,
     },
     cardDesc: {
-        marginBottom: 18,
+        marginTop: 4,
+        marginBottom: 0,
     },
     arrow: {
         position: 'absolute',

@@ -191,14 +191,15 @@ const Stage = ({
     const paddingV = balanced ? (isMobile ? 56 : 72) : 0;
 
     return (
-        <View style={[stylesLocal.stage, { minHeight }]}>
+        <View style={stylesLocal.stage}>
             {bgNode}
             {scrimNode}
             <View
-                style={[
-                    flow ? { position: 'relative' } : StyleSheet.absoluteFillObject,
-                    { justifyContent, alignItems },
-                ]}
+                style={{
+                    minHeight,
+                    justifyContent,
+                    alignItems,
+                }}
             >
                 <View style={stylesLocal.maxWrap}>
                     <View style={[stylesLocal.content, { paddingVertical: paddingV }]}>
