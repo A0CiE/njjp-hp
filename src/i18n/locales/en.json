@@ -21,14 +21,14 @@
   "hero": {
     "tag": "Nanji E-commerce Japan Branch",
     "title": "About NANJI JAPAN",
-    "lead": "Japanese planning, Chinese manufacturing power."
+    "lead": "Japanese design, Chinese manufacturing power."
   },
   "about": {
     "title": "A data‑driven leading Chinese consumer brand",
     "lead": "Aiming to become a world‑class consumer giant; helping Chinese manufacturing succeed.",
-    "overview": "Overview",
+    "overview": "History",
     "overviewBody": "Started with NANJIREN in 1998 and grew into a multi‑brand platform; strong across basics, underwear, loungewear, and outerwear.",
-    "key": "Key data",
+    "key": "Achievement",
     "keyBody": "FY2020 net profit ~ RMB 1.1B; scale advantages reduce platform costs."
   },
   "services": {
@@ -49,15 +49,15 @@
     ]
   },
   "handbook": {
-    "title": "About our Company",
-    "lead": "NJ Corporation is an innovative trading and service company established with investment from a publicly listed Chinese company, dedicated to providing “one-stop, on-site supply chain solutions” for Japanese SMEs and apparel brands.",
+    "title": "Our Mission",
+    "lead": "Nanji Japan Co. Ltd is an innovative trading and service company established by Nanji E-commerce.",
     "items": [
       "Company Background",
-      "Service Positioning",
-      "Core Mission"
+      "Our Positioning",
+      "Our Vision"
     ],
     "itemBodies": [
-      "NJ Corporation was founded with investment from a publicly listed Chinese company. Backed by solid capital strength and extensive supply-chain resources in China, it serves as an innovative trading service platform for the Japanese market.",
+      "Nanji Japan Co. Ltd was founded with investment from a publicly listed company. Backed by solid capital strength and extensive supply-chain resources in China, it serves as an innovative trading service platform for the Japanese market.",
       "We focus on providing “one-stop, on-site supply chain solutions” for Japanese SMEs and apparel brands, accompanying clients from planning and sampling all the way through production and delivery.",
       "Positioned as a “next-generation trading company,” we are committed to becoming the most trusted Chinese supply-chain partner for Japanese businesses."
     ]
@@ -74,20 +74,6 @@
       "Vipshop",
       "Douyin",
       "Kuaishou"
-    ]
-  },
-  "handbook": {
-    "title": "NANJIDS STANDARD HANDBOOK",
-    "lead": "Dark image page in PDF is represented with a dark background; right‑aligned reversed text.",
-    "items": [
-      "Brand elements",
-      "Product specifications",
-      "Marketing assets"
-    ],
-    "itemBodies": [
-      "Logo safe area / scaling; color & typography; layout grid & spacing.",
-      "Compliance of tags & labels; size & composition; packaging & printing.",
-      "Online visuals / video covers; offline POP & posters; store fixtures."
     ]
   },
   "supply": {
@@ -141,7 +127,7 @@
     "greetingTitle": "Message from the CEO",
     "greetingBody": "We are committed to deeply integrating China’s strong supply-chain resources with the sophisticated needs of the Japanese market, working together with our clients to create high-quality, reasonably priced apparel so that Japanese consumers can enjoy great products at fair prices, while delivering sustainable, long-term value to our partners.",
     "ceoTitle": "CEO",
-    "ceoName": "Zhang Yuxiang",
+    "ceoName": "Takumi Kitaura",
     "mvTitle": "Management Philosophy",
     "value1": "CONFIDENCE",
     "value2": "TRUST",

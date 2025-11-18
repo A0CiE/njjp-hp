@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import Stage from '../layout/Stage';
 import pageStyles from '../styles/pageStyles';
-import { colors, typeScale } from '../../theme';
+import { colors, typeScale, metrics } from '../../theme';
 
 const Founder: React.FC = () => {
     const { t } = useTranslation();
     const ww = typeof window === 'undefined' ? 1200 : window.innerWidth;
+    const isMobile = ww <= metrics.bpSm;
 
     const sizes = {
         h2: typeScale.h2(ww),
@@ -33,6 +34,7 @@ const Founder: React.FC = () => {
         >
             <View style={styles.outer}>
                 <View style={styles.panel}>
+                    {/* 代表挨拶 */}
                     <View style={styles.greetingBlock}>
                         <View style={styles.sectionTitleRow}>
                             <View style={styles.redBar} />
@@ -71,6 +73,7 @@ const Founder: React.FC = () => {
 
                     <View style={styles.dividerSpace} />
 
+                    {/* 経営理念 */}
                     <View style={styles.mvBlock}>
                         <View style={styles.sectionTitleRow}>
                             <View style={styles.redBar} />
@@ -85,17 +88,18 @@ const Founder: React.FC = () => {
                             </Text>
                         </View>
 
-                        <View style={styles.mvRow}>
+                        <View style={[styles.mvRow, isMobile && styles.mvRowStack]}>
                             <Text
                                 style={[
                                     styles.valueLabel,
                                     { fontSize: sizes.h2 },
+                                    isMobile && styles.valueLabelStack, // ★ 小屏：去掉右边距、加下边距
                                 ]}
                             >
                                 VALUE
                             </Text>
 
-                            <View style={styles.valuesCol}>
+                            <View style={[styles.valuesCol, isMobile && styles.valuesColStack]}>
                                 {values.map((val, idx) => (
                                     <Text
                                         key={`${val}-${idx}`}
@@ -172,20 +176,39 @@ const styles = StyleSheet.create({
         borderTopColor: '#e5e7eb',
         paddingTop: 24,
     },
+
     mvRow: {
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginTop: 8,
     },
+
+    mvRowStack: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+    },
+
     valueLabel: {
         color: colors.brand,
         fontWeight: '900',
         letterSpacing: 3,
         marginRight: 24,
     },
+
+    valueLabelStack: {
+        marginRight: 0,
+        marginBottom: 8,
+    },
+
     valuesCol: {
         flex: 1,
     },
+
+    valuesColStack: {
+        flex: 0,
+        width: '100%',
+    },
+
     valueText: {
         marginBottom: 6,
         marginTop: 0,

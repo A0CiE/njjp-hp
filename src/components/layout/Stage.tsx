@@ -188,7 +188,12 @@ const Stage = ({
         valign === 'top' ? 'flex-start' : valign === 'bottom' ? 'flex-end' : 'center';
     const alignItems =
         align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center';
-    const paddingV = balanced ? (isMobile ? 56 : 72) : 0;
+
+    const basePaddingV = isMobile ? 32 : 40;
+
+    const paddingV = balanced
+        ? (isMobile ? 56 : 72)
+        : basePaddingV;
 
     return (
         <View style={stylesLocal.stage}>
