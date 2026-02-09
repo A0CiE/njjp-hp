@@ -13,6 +13,7 @@ import Coop from "../src/components/sections/Coop";
 import Services from "../src/components/sections/Services";
 import Contact from "../src/components/sections/Contact";
 import Footer from "../src/components/sections/Footer";
+import BrowseWall from "../src/components/sections/BrowseWall";
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -45,6 +46,9 @@ export default function Page() {
                 </View>
                 <View onLayout={onLayout('services')}>
                     <Services/>
+                </View>
+                <View onLayout={onLayout('listing')}>
+                    <BrowseWall/>
                 </View>
                 {/*<View onLayout={onLayout('categories')}>*/}
                 {/*    <Categories />*/}

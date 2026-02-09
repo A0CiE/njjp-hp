@@ -146,5 +146,52 @@
   },
   "footer": {
     "copyright": "© NANJI JAPAN"
+  },
+  "listing_page": {
+    "announcement": "我们才刚刚开始。新增服装上架后会第一时间通知。",
+    "notify": "接收通知",
+    "home": "首页",
+    "search_placeholder": "搜索服装",
+    "hero_top": "以最低价",
+    "hero_bottom": "购买服装。",
+    "view_details": "查看详情",
+    "loading": "正在加载服装...",
+    "empty": "未找到商品。",
+    "all_option": "全部",
+    "season_filter": "季节",
+    "gender_filter": "性别",
+    "sort_filter": "排序",
+    "sort_heading": "筛选并排序，共{{count}}件",
+    "sort_options": {
+      "price": "价格（从低到高）",
+      "product_number": "产品编号",
+      "product_year": "产品年份"
+    },
+    "default_order": "默认顺序"
+  },
+  "detail_page": {
+    "announcement": "我们才刚刚开始。新增服装上架后会第一时间通知。",
+    "notify": "接收通知",
+    "browse": "服装列表",
+    "details_title": "产品规格",
+    "product_code": "产品编码",
+    "season": "季节",
+    "gender": "性别",
+    "product_name": "产品名",
+    "color_range": "颜色范围",
+    "genre": "类目",
+    "size_range": "尺码范围",
+    "material": "素材构成",
+    "feature": "特长",
+    "trim_spec": "副资材规格",
+    "final_price": "最终价格（仕入価格）",
+    "back_to_list": "返回列表",
+    "product_missing": "未找到该产品",
+    "not_found_body": "当前数据中不存在这个产品编码。",
+    "loading_products": "正在加载产品详情..."
+  },
+  "browse_wall": {
+    "title": "浏览服装",
+    "cta": "打开完整列表"
   }
 }

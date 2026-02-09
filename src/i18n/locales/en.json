@@ -146,5 +146,52 @@
   },
   "footer": {
     "copyright": "© NANJI JAPAN"
+  },
+  "listing_page": {
+    "announcement": "We're just getting started. Get updates as new apparels are added.",
+    "notify": "Get notified",
+    "home": "Home",
+    "search_placeholder": "Search apparels",
+    "hero_top": "Buy apparels at",
+    "hero_bottom": "the lowest prices.",
+    "view_details": "View details",
+    "loading": "Loading apparels...",
+    "empty": "No products found.",
+    "all_option": "All",
+    "season_filter": "Season",
+    "gender_filter": "Gender",
+    "sort_filter": "Sort",
+    "sort_heading": "Filter and sort {{count}} apparels",
+    "sort_options": {
+      "price": "Price (Low to High)",
+      "product_number": "Product Number",
+      "product_year": "Product Year"
+    },
+    "default_order": "Default Order"
+  },
+  "detail_page": {
+    "announcement": "We're just getting started. Get updates as new apparels are added.",
+    "notify": "Get notified",
+    "browse": "Browse Apparels",
+    "details_title": "Product Specifications",
+    "product_code": "Product code",
+    "season": "Season",
+    "gender": "Gender",
+    "product_name": "Product Name",
+    "color_range": "Color Range",
+    "genre": "Genre",
+    "size_range": "Size Range",
+    "material": "Material",
+    "feature": "Feature",
+    "trim_spec": "Trim Specification",
+    "final_price": "Final Price (仕入価格)",
+    "back_to_list": "Back to listing",
+    "product_missing": "Product not found",
+    "not_found_body": "This product code does not exist in the current listing dataset.",
+    "loading_products": "Loading product details..."
+  },
+  "browse_wall": {
+    "title": "Browse Apparels",
+    "cta": "Open Full Listing"
   }
 }

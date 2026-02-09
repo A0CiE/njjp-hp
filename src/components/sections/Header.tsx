@@ -33,7 +33,7 @@ export default function Header({ onNav }: { onNav?: (id: string)=>void }){
 
     const go = (id: string)=>{
         setMenuOpen(false);
-        if (id === 'listing') {
+        if (id === 'listing' && !onNav) {
             router.push('/listing');
             return;
         }

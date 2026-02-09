@@ -146,5 +146,52 @@
   },
   "footer": {
     "copyright": "© NANJI JAPAN "
+  },
+  "listing_page": {
+    "announcement": "サービスは始まったばかりです。新商品追加時にお知らせします。",
+    "notify": "通知を受け取る",
+    "home": "ホーム",
+    "search_placeholder": "アパレルを検索",
+    "hero_top": "アパレルを",
+    "hero_bottom": "最安価格で。",
+    "view_details": "詳細を見る",
+    "loading": "アパレルを読み込み中...",
+    "empty": "商品が見つかりません。",
+    "all_option": "すべて",
+    "season_filter": "シーズン",
+    "gender_filter": "性別",
+    "sort_filter": "並び替え",
+    "sort_heading": "全{{count}}件を絞り込み・並び替え",
+    "sort_options": {
+      "price": "価格（安い順）",
+      "product_number": "品番順",
+      "product_year": "発売年順"
+    },
+    "default_order": "初期順"
+  },
+  "detail_page": {
+    "announcement": "サービスは始まったばかりです。新商品追加時にお知らせします。",
+    "notify": "通知を受け取る",
+    "browse": "アパレル一覧",
+    "details_title": "商品仕様",
+    "product_code": "商品コード",
+    "season": "シーズン",
+    "gender": "性別",
+    "product_name": "商品名",
+    "color_range": "カラー展開",
+    "genre": "ジャンル",
+    "size_range": "サイズ展開",
+    "material": "素材構成",
+    "feature": "特長",
+    "trim_spec": "副資材仕様",
+    "final_price": "最終価格（仕入価格）",
+    "back_to_list": "一覧へ戻る",
+    "product_missing": "商品が見つかりません",
+    "not_found_body": "この商品コードは現在の一覧データに存在しません。",
+    "loading_products": "商品詳細を読み込み中..."
+  },
+  "browse_wall": {
+    "title": "アパレルを探す",
+    "cta": "一覧ページを開く"
   }
 }

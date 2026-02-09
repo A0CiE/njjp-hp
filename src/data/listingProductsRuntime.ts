@@ -2,6 +2,7 @@ import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
 
 export type RuntimeListingProduct = {
+    id: number;
     code: string;
     season: string;
     gender: string;
@@ -16,8 +17,8 @@ export type RuntimeListingProduct = {
     imageUrl: string;
 };
 
-const EXPECTED_COLS = 12;
-const LISTING_TEXT_ASSET = require('./listing_products.txt');
+const EXPECTED_COLS = 13;
+const PRODUCTS_TEXT_ASSET = require('./products.txt');
 
 let cache: RuntimeListingProduct[] | null = null;
 let pendingLoad: Promise<RuntimeListingProduct[]> | null = null;
@@ -30,13 +31,22 @@ const parsePrice = (raw: string): number => {
 
 const normalizeCell = (value: string): string => value.trim().replace(/^"|"$/g, '');
 
-const parseLine = (line: string): RuntimeListingProduct | null => {
+const parseItemId = (raw: string, fallbackId: number): number => {
+    const parsed = Number.parseInt(raw.trim(), 10);
+    if (Number.isFinite(parsed) && parsed > 0) {
+        return parsed;
+    }
+    return fallbackId;
+};
+
+const parseLine = (line: string, fallbackId: number): RuntimeListingProduct | null => {
     const cols = line.split('|').map(normalizeCell);
     if (cols.length < EXPECTED_COLS) {
         return null;
     }
 
     const [
+        rawId,
         code,
         season,
         gender,
@@ -56,6 +66,7 @@ const parseLine = (line: string): RuntimeListingProduct | null => {
     }
 
     return {
+        id: parseItemId(rawId, fallbackId),
         code,
         season,
         gender,
@@ -83,16 +94,16 @@ export const parseListingProductsText = (text: string): RuntimeListingProduct[] 
 
     return lines
         .slice(1)
-        .map(parseLine)
+        .map((line, index) => parseLine(line, index + 1))
         .filter((item): item is RuntimeListingProduct => item !== null);
 };
 
 const readAssetText = async (): Promise<string> => {
-    const [asset] = await Asset.loadAsync(LISTING_TEXT_ASSET);
+    const [asset] = await Asset.loadAsync(PRODUCTS_TEXT_ASSET);
     const assetUri = asset.localUri ?? asset.uri;
 
     if (!assetUri) {
-        throw new Error('Unable to locate listing_products.txt asset URI');
+        throw new Error('Unable to locate products.txt asset URI');
     }
 
     try {
@@ -100,7 +111,7 @@ const readAssetText = async (): Promise<string> => {
     } catch {
         const response = await fetch(assetUri);
         if (!response.ok) {
-            throw new Error(`Failed to fetch listing_products.txt: ${response.status}`);
+            throw new Error(`Failed to fetch products.txt: ${response.status}`);
         }
         return await response.text();
     }
