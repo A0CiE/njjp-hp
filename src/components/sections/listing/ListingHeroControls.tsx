@@ -73,6 +73,16 @@ export default function ListingHeroControls({
     onSelectGender,
     onSelectSort,
 }: Props) {
+    const colStyleFor = (key: Exclude<ListingMenuKey, null>) => [
+        styles.controlCol,
+        openMenu === key ? styles.controlColActive : styles.controlColInactive,
+    ];
+
+    const wrapStyleFor = (key: Exclude<ListingMenuKey, null>) => [
+        styles.sortControlWrap,
+        openMenu === key ? styles.sortControlWrapActive : null,
+    ];
+
     return (
         <View style={[styles.heroRow, isMobile && styles.heroRowStack]}>
             <Animated.Text
@@ -90,15 +100,22 @@ export default function ListingHeroControls({
                 {heroBottom}
             </Animated.Text>
 
-            <Animated.View style={[styles.sortBlock, sortStyle, { width: controlPanelWidth }]}>
+            <Animated.View
+                style={[
+                    styles.sortBlock,
+                    sortStyle,
+                    { width: controlPanelWidth },
+                    openMenu ? styles.sortBlockMenuOpen : null,
+                ]}
+            >
                 <Text style={[styles.sortLabel, { fontSize: sortLabelSize, lineHeight: Math.round(sortLabelSize * 1.1) }]}>
                     {sortHeading}
                 </Text>
 
                 <View style={styles.controlRow}>
-                    <View style={styles.controlCol}>
+                    <View style={colStyleFor('season')}>
                         <Text style={styles.controlCaption}>{seasonLabel}</Text>
-                        <View style={styles.sortControlWrap}>
+                        <View style={wrapStyleFor('season')}>
                             <Pressable
                                 onPress={() => onToggleMenu('season')}
                                 style={({ pressed }) => [styles.sortTrigger, pressed && styles.sortTriggerPressed]}
@@ -132,9 +149,9 @@ export default function ListingHeroControls({
                         </View>
                     </View>
 
-                    <View style={styles.controlCol}>
+                    <View style={colStyleFor('gender')}>
                         <Text style={styles.controlCaption}>{genderLabel}</Text>
-                        <View style={styles.sortControlWrap}>
+                        <View style={wrapStyleFor('gender')}>
                             <Pressable
                                 onPress={() => onToggleMenu('gender')}
                                 style={({ pressed }) => [styles.sortTrigger, pressed && styles.sortTriggerPressed]}
@@ -168,9 +185,9 @@ export default function ListingHeroControls({
                         </View>
                     </View>
 
-                    <View style={styles.controlCol}>
+                    <View style={colStyleFor('sort')}>
                         <Text style={styles.controlCaption}>{sortLabel}</Text>
-                        <View style={styles.sortControlWrap}>
+                        <View style={wrapStyleFor('sort')}>
                             <Pressable
                                 onPress={() => onToggleMenu('sort')}
                                 style={({ pressed }) => [styles.sortTrigger, pressed && styles.sortTriggerPressed]}
@@ -241,6 +258,9 @@ const styles = StyleSheet.create({
         zIndex: 20,
         overflow: 'visible',
     },
+    sortBlockMenuOpen: {
+        zIndex: 140,
+    },
     sortLabel: {
         color: CHARCOAL,
         marginBottom: 8,
@@ -250,10 +270,20 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         gap: 10,
         flexWrap: 'wrap',
+        position: 'relative',
+        zIndex: 1,
+        overflow: 'visible',
     },
     controlCol: {
         flex: 1,
         minWidth: 150,
+        position: 'relative',
+    },
+    controlColInactive: {
+        zIndex: 1,
+    },
+    controlColActive: {
+        zIndex: 80,
     },
     controlCaption: {
         color: 'rgba(51,51,52,0.72)',
@@ -262,8 +292,10 @@ const styles = StyleSheet.create({
     },
     sortControlWrap: {
         position: 'relative',
-        zIndex: 30,
         overflow: 'visible',
+    },
+    sortControlWrapActive: {
+        zIndex: 90,
     },
     sortTrigger: {
         borderWidth: 1,
@@ -299,8 +331,12 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         backgroundColor: OFF_BEIGE,
         overflow: 'hidden',
-        zIndex: 40,
-        elevation: 6,
+        zIndex: 120,
+        elevation: 16,
+        shadowColor: '#000',
+        shadowOpacity: 0.12,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 3 },
     },
     sortItem: {
         paddingHorizontal: 12,

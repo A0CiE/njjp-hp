@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import * as Linking from 'expo-linking';
 import { useTranslation } from 'react-i18next';
 import pageStyles from '../styles/pageStyles';
 import { colors, typeScale } from '../../theme';
@@ -63,10 +64,13 @@ const Contact: React.FC = () => {
                         style={styles.mail}
                         activeOpacity={0.9}
                         onPress={() => {
-                            // Linking.openURL('mailto:contact@nanji.jp');
+                            Linking.openURL('mailto:takumi0508@nanji-jp.com');
                         }}
                     >
-                        <View style={styles.iconMail} />
+                        <View style={styles.iconMail}>
+                            <View style={[styles.iconFlap, styles.iconFlapLeft]} />
+                            <View style={[styles.iconFlap, styles.iconFlapRight]} />
+                        </View>
                         <Text style={styles.mailText}>{t('contact.mailCta')}</Text>
                         <Text style={styles.mailArrow}>→</Text>
                     </TouchableOpacity>
@@ -148,6 +152,23 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 4,
         marginRight: 14,
+        position: 'relative',
+        overflow: 'hidden',
+    },
+    iconFlap: {
+        position: 'absolute',
+        top: 6,
+        width: 13,
+        height: 2,
+        backgroundColor: '#fff',
+    },
+    iconFlapLeft: {
+        left: 2,
+        transform: [{ rotate: '32deg' }],
+    },
+    iconFlapRight: {
+        right: 2,
+        transform: [{ rotate: '-32deg' }],
     },
     mailText: {
         color: '#fff',

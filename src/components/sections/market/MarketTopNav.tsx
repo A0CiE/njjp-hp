@@ -33,9 +33,9 @@ export default function MarketTopNav({
                 stack && styles.navRowStack,
             ]}
         >
-            <NanjiBrand onPress={onBrandPress} wordmarkSize={wordmarkSize} />
+            <NanjiBrand onPress={onBrandPress} wordmarkSize={wordmarkSize} style={styles.brandWrap} />
 
-            <View style={styles.navActions}>
+            <View style={[styles.navActions, stack && styles.navActionsStack]}>
                 <Pressable onPress={onPrimaryPress} style={({ pressed }) => [styles.navBtn, pressed && styles.navBtnPressed]}>
                     <Text style={styles.navBtnText}>{primaryLabel}</Text>
                 </Pressable>
@@ -53,14 +53,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 12,
+        minWidth: 0,
     },
     navRowStack: {
-        alignItems: 'flex-start',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
+        gap: 10,
+    },
+    brandWrap: {
+        minWidth: 0,
+        flexShrink: 1,
     },
     navActions: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
+        flexShrink: 0,
+    },
+    navActionsStack: {
+        justifyContent: 'flex-end',
     },
     navBtn: {
         borderWidth: 1,

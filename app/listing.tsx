@@ -334,13 +334,23 @@ export default function ListingPage() {
         }).start();
     };
 
+    const closeOpenMenu = () => {
+        setOpenMenu((prev) => (prev === null ? prev : null));
+    };
+
     const toggleMenu = (key: Exclude<ListingMenuKey, null>) => {
         setOpenMenu((prev) => (prev === key ? null : key));
     };
 
     return (
         <View style={styles.root}>
-            <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={{ paddingBottom: 24 }}>
+            <ScrollView
+                ref={scrollRef}
+                style={styles.root}
+                contentContainerStyle={{ paddingBottom: 24 }}
+                onScrollBeginDrag={closeOpenMenu}
+                onMomentumScrollBegin={closeOpenMenu}
+            >
                 <MarketAnnouncementBar
                     compact
                     announcement={t('listing_page.announcement')}

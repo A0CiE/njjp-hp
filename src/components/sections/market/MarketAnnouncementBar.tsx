@@ -68,7 +68,13 @@ export default function MarketAnnouncementBar({
                 )}
             </View>
 
-            <Text style={[styles.annText, compact ? styles.annTextCompact : styles.annTextRegular]}>{announcement}</Text>
+            <Text
+                numberOfLines={compact ? 1 : 2}
+                ellipsizeMode="tail"
+                style={[styles.annText, compact ? styles.annTextCompact : styles.annTextRegular]}
+            >
+                {announcement}
+            </Text>
 
             <Pressable style={({ pressed }) => [styles.notifyBtn, compact ? styles.notifyBtnCompact : styles.notifyBtnRegular, pressed && styles.notifyBtnPressed]}>
                 <Text style={[styles.notifyText, compact ? styles.notifyTextCompact : styles.notifyTextRegular]}>{notifyText}</Text>
@@ -88,13 +94,15 @@ const styles = StyleSheet.create({
         zIndex: 30,
     },
     announcementCompact: {
-        height: 38,
+        minHeight: 38,
         paddingHorizontal: 12,
+        paddingVertical: 5,
         gap: 10,
     },
     announcementRegular: {
-        height: 52,
+        minHeight: 52,
         paddingHorizontal: 16,
+        paddingVertical: 8,
         gap: 12,
     },
     langWrap: {
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
         flex: 1,
         color: CHARCOAL,
         textAlign: 'center',
+        minWidth: 0,
     },
     annTextCompact: {
         fontSize: 12,

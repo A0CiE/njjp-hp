@@ -66,9 +66,10 @@ export default function ProductDetailPage() {
     const currentLangOption = LANG_OPTIONS.find((option) => option.code === lang) ?? LANG_OPTIONS[0];
 
     const isMobile = width <= 1120;
-    const heroTitleSize = isMobile ? 54 : 74;
-    const imageHeight = isMobile ? 460 : 760;
-    const brandWordmarkSize = isMobile ? 22 : 34;
+    const isPhone = width <= 760;
+    const heroTitleSize = isPhone ? 42 : isMobile ? 54 : 74;
+    const imageHeight = isPhone ? 360 : isMobile ? 460 : 760;
+    const brandWordmarkSize = isPhone ? 18 : isMobile ? 22 : 34;
 
     const imageUri = (product?.imageUrl || '').trim();
 
@@ -90,7 +91,7 @@ export default function ProductDetailPage() {
         <View style={styles.root}>
             <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={{ paddingBottom: 24 }}>
                 <MarketAnnouncementBar
-                    compact={false}
+                    compact={isPhone}
                     announcement={t('detail_page.announcement')}
                     notifyText={t('detail_page.notify')}
                     currentShortLabel={currentLangOption.shortLabel}
@@ -120,7 +121,8 @@ export default function ProductDetailPage() {
                             onSearchPress={() => router.push('/listing')}
                             wordmarkSize={brandWordmarkSize}
                             marginTop={18}
-                            horizontalPadding={36}
+                            horizontalPadding={isPhone ? 14 : 36}
+                            stack={isPhone}
                         />
 
                         <ProductDetailSection

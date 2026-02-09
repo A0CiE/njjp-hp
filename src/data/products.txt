@@ -1,6 +1,6 @@
 id|品番|シーズン|性別|商品名|カラー展開|ジャンル|サイズ展開|素材構成|特長|副資材仕様|仕入価格|画像URL
-1|NX251DY001|秋冬|メンズ|ラペルコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4208|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-2|VX252DY002|秋冬|レディース|クラシックノッチドラペルショートコート|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4175|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
+1|NX251DY001|秋冬|メンズ|ラペルコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4208|https://drive.google.com/thumbnail?id=1Hvpo2U9FlbBcbZM00_rMnWFOUlHEqZOU&sz=s4000
+2|VX252DY002|秋冬|レディース|クラシックノッチドラペルショートコート|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4175|https://drive.google.com/thumbnail?id=1SVWH2hq-INzRx-HoR_AfMNYEyBiZnvZb&sz=s4000
 3|VX252DY003|秋冬|レディース|クラシックノッチドラペルロングコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|5359|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
 4|VX252DY005|秋冬|レディース|エレガントフード付きショートコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、|4931|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
 5|VX252DY006|秋冬|レディース|エレガントフード付きロングコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、|6181|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg

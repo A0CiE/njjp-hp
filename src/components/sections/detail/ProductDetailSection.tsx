@@ -43,11 +43,11 @@ export default function ProductDetailSection({
 }: Props) {
     return (
         <View style={[styles.contentRow, isMobile && styles.contentCol]}>
-            <View style={[styles.imagePanel, { height: imageHeight }]}>
+            <View style={[styles.imagePanel, { height: imageHeight }, isMobile && styles.imagePanelMobile]}>
                 {imageUri ? <Image source={{ uri: imageUri }} resizeMode="contain" style={styles.productImage} /> : null}
             </View>
 
-            <View style={styles.detailCol}>
+            <View style={[styles.detailCol, isMobile && styles.detailColMobile]}>
                 <Text style={[styles.title, { fontSize: heroTitleSize, lineHeight: Math.round(heroTitleSize * 0.95) }]}>{name}</Text>
                 <Text style={styles.subText}>
                     {productCodeLabel}: {productCode}
@@ -97,6 +97,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         overflow: 'hidden',
     },
+    imagePanelMobile: {
+        flex: 0,
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: 'auto',
+        width: '100%',
+    },
     productImage: {
         width: '74%',
         height: '74%',
@@ -105,6 +112,15 @@ const styles = StyleSheet.create({
         flex: 0.72,
         minWidth: 320,
         maxWidth: 620,
+    },
+    detailColMobile: {
+        flex: 0,
+        flexGrow: 0,
+        flexShrink: 1,
+        flexBasis: 'auto',
+        width: '100%',
+        minWidth: 0,
+        maxWidth: '100%',
     },
     title: {
         color: CHARCOAL,

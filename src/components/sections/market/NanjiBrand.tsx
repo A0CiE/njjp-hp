@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 10,
+        minWidth: 0,
+        flexShrink: 1,
     },
     mark: {
         width: 36,
@@ -43,5 +45,6 @@ const styles = StyleSheet.create({
         color: '#111',
         fontWeight: '900',
         letterSpacing: 0.2,
+        flexShrink: 1,
     },
 });
