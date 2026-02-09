@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Modal, useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'expo-router';
 import { useI18n } from '../../i18n/provider';
 import { colors } from '../../theme';
 
@@ -13,6 +14,7 @@ const LANGS: { code: Lang; label: string }[] = [
 
 export default function Header({ onNav }: { onNav?: (id: string)=>void }){
     const { t } = useTranslation();
+    const router = useRouter();
     const { currentLanguage, setLanguage } = useI18n();
     const [menuOpen, setMenuOpen] = useState(false);   // 导航折叠
     const [langOpen, setLangOpen] = useState(false);   // 语言下拉
@@ -24,11 +26,19 @@ export default function Header({ onNav }: { onNav?: (id: string)=>void }){
             { id: 'hero', label: t('nav.home') },
             { id: 'about', label: t('nav.about') },
             { id: 'services', label: t('nav.services') },
+            { id: 'listing', label: t('nav.listing') },
             { id: 'handbook', label: t('nav.handbook') },
             { id: 'founder', label: t('nav.founder') },
         ], [t]);
 
-    const go = (id: string)=>{ setMenuOpen(false); onNav?.(id); };
+    const go = (id: string)=>{
+        setMenuOpen(false);
+        if (id === 'listing') {
+            router.push('/listing');
+            return;
+        }
+        onNav?.(id);
+    };
     const currentLabel = LANGS.find(l => l.code === currentLanguage)?.label ?? currentLanguage.toUpperCase();
 
     return (
