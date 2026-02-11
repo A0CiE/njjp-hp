@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { initI18n } from './i18n';
+import { toAppLanguage, type AppLanguage } from './languageOptions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18next from 'i18next';
 
-type Lang = 'zh'|'en'|'ja';
-type Ctx = { currentLanguage: Lang; setLanguage: (lng: Lang)=>void };
+type Ctx = { currentLanguage: AppLanguage; setLanguage: (lng: AppLanguage)=>void };
 
 const I18nCtx = createContext<Ctx>({ currentLanguage: 'ja', setLanguage: ()=>{} });
 
@@ -12,19 +12,19 @@ const I18nCtx = createContext<Ctx>({ currentLanguage: 'ja', setLanguage: ()=>{} 
 initI18n();
 
 export function I18nProvider({ children }:{children:React.ReactNode}){
-  const [currentLanguage, setCurrentLanguage] = useState<Lang>((i18next.language as Lang) || 'en');
+  const [currentLanguage, setCurrentLanguage] = useState<AppLanguage>(toAppLanguage(i18next.language));
 
   useEffect(()=>{
-    const onChanged = (lng:string)=> setCurrentLanguage(lng as Lang);
+    const onChanged = (lng:string)=> setCurrentLanguage(toAppLanguage(lng));
     i18next.on('languageChanged', onChanged);
     (async ()=>{
-      const saved = await AsyncStorage.getItem('@nanji.lang') as Lang | null;
+      const saved = await AsyncStorage.getItem('@nanji.lang') as AppLanguage | null;
       if(saved && saved!==i18next.language){ i18next.changeLanguage(saved); }
     })();
     return ()=>{ i18next.off('languageChanged', onChanged); };
   }, []);
 
-  const setLanguage = (lng: Lang)=>{
+  const setLanguage = (lng: AppLanguage)=>{
     i18next.changeLanguage(lng);
     AsyncStorage.setItem('@nanji.lang', lng).catch(()=>{});
   };

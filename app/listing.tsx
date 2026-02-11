@@ -11,6 +11,7 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { useI18n } from '../src/i18n/provider';
+import { LANGUAGE_OPTIONS, toAppLanguage, type AppLanguage } from '../src/i18n/languageOptions';
 import { loadListingProducts, type RuntimeListingProduct } from '../src/data/listingProductsRuntime';
 import { withImageSize } from '../src/data/imageUrl';
 import MarketAnnouncementBar from '../src/components/sections/market/MarketAnnouncementBar';
@@ -23,17 +24,10 @@ import ListingProductGrid from '../src/components/sections/listing/ListingProduc
 import Footer from '../src/components/sections/Footer';
 
 type SortKey = 'default' | 'price' | 'productNumber' | 'productYear';
-type AppLang = 'en' | 'ja' | 'zh';
 
 const ALL_FILTER_VALUE = '__ALL__';
 const OFF_BEIGE = '#ECEADD';
 const CHARCOAL = '#333334';
-
-const LANG_OPTIONS: { code: AppLang; shortLabel: string; label: string }[] = [
-    { code: 'en', shortLabel: 'EN', label: 'English' },
-    { code: 'zh', shortLabel: 'ZH', label: '中文' },
-    { code: 'ja', shortLabel: 'JA', label: '日本語' },
-];
 
 type ApparelCard = {
     id: number;
@@ -110,11 +104,13 @@ export default function ListingPage() {
     const [genderFilter, setGenderFilter] = useState(ALL_FILTER_VALUE);
     const [rawProducts, setRawProducts] = useState<RuntimeListingProduct[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [hoverBindingsVersion, setHoverBindingsVersion] = useState(0);
 
     const heroReveal = useRef(new Animated.Value(0)).current;
     const sortReveal = useRef(new Animated.Value(0)).current;
     const cardReveal = useRef<Animated.Value[]>([]).current;
     const hoverScale = useRef<Record<string, Animated.Value>>({}).current;
+    const ctaHover = useRef<Record<string, Animated.Value>>({}).current;
     const scrollRef = useRef<ScrollView>(null);
 
     useEffect(() => {
@@ -168,9 +164,16 @@ export default function ListingPage() {
             if (!hoverScale[itemKey]) {
                 hoverScale[itemKey] = new Animated.Value(1);
             }
+            if (!ctaHover[itemKey]) {
+                ctaHover[itemKey] = new Animated.Value(0);
+            } else {
+                ctaHover[itemKey].setValue(0);
+            }
         });
 
         cardReveal.length = rawProducts.length;
+        // Force one re-bind render so freshly initialized refs are attached to card styles.
+        setHoverBindingsVersion((v) => v + 1);
 
         if (cardReveal.length > 0) {
             Animated.stagger(
@@ -184,7 +187,7 @@ export default function ListingPage() {
                 ),
             ).start();
         }
-    }, [cardReveal, hoverScale, rawProducts]);
+    }, [cardReveal, ctaHover, hoverScale, rawProducts]);
 
     const heroStyle = {
         opacity: heroReveal,
@@ -210,8 +213,7 @@ export default function ListingPage() {
         ],
     };
 
-    const lang: AppLang = currentLanguage === 'zh' || currentLanguage === 'ja' || currentLanguage === 'en' ? currentLanguage : 'en';
-    const currentLangOption = LANG_OPTIONS.find((option) => option.code === lang) ?? LANG_OPTIONS[0];
+    const lang: AppLanguage = toAppLanguage(currentLanguage);
 
     const products = useMemo<ApparelCard[]>(
         () =>
@@ -298,7 +300,7 @@ export default function ListingPage() {
             acc[String(item.id)] = cardReveal[index];
             return acc;
         }, {} as Record<string, Animated.Value | undefined>);
-    }, [cardReveal, rawProducts]);
+    }, [cardReveal, hoverBindingsVersion, rawProducts]);
 
     const selectedSortLabel =
         sortBy === 'default'
@@ -309,32 +311,46 @@ export default function ListingPage() {
     const sortHeading = t('listing_page.sort_heading', { count: filtered.length });
 
     const isMobile = width <= 800;
-    const isTablet = width <= 980;
+    const isTablet = width <= 1200;
     const containerPadding = width > 1320 ? 66 : width > 980 ? 40 : 18;
-    const gridGap = 28;
-    const columns = isMobile ? 1 : isTablet ? 2 : 3;
+    const gridGap = width <= 980 ? 20 : 28;
     const contentWidth = Math.max(0, width - containerPadding * 2);
+    const minSquareCardWidth = isMobile ? 220 : width <= 1200 ? 260 : 300;
+    const maxColumns = isMobile ? 2 : 4;
+    const fitColumns = Math.max(1, Math.floor((contentWidth + gridGap) / (minSquareCardWidth + gridGap)));
+    const columns = Math.max(1, Math.min(maxColumns, fitColumns));
     const controlPanelWidth = isMobile ? contentWidth : Math.min(840, Math.max(520, contentWidth * 0.62));
-    const cardWidth = columns === 1 ? contentWidth : Math.max(220, (contentWidth - gridGap * (columns - 1)) / columns);
+    const cardWidth = Math.max(180, (contentWidth - gridGap * (columns - 1)) / columns);
     const heroFontSize = Math.max(52, Math.min(78, width * 0.055));
     const brandWordmarkSize = isMobile ? 22 : 34;
-    const imageHeight = isMobile ? 360 : isTablet ? 370 : 470;
+    const imageHeight = cardWidth;
     const sortLabelSize = isMobile ? 16 : 25;
-    const cardNameSize = isMobile ? 34 : isTablet ? 38 : 43;
-    const cardPriceSize = isMobile ? 31 : isTablet ? 34 : 38;
+    const cardNameSize = isMobile ? 23 : isTablet ? 25 : 29;
+    const cardNameLineHeight = isMobile ? 24 : isTablet ? 26 : 30;
+    const cardPriceSize = isMobile ? 21 : isTablet ? 23 : 25;
+    const cardPriceLineHeight = isMobile ? 22 : isTablet ? 24 : 26;
 
     const animateHover = (id: number, active: boolean) => {
-        const value = hoverScale[String(id)];
-        if (!value) {
-            return;
+        const key = String(id);
+        const scaleValue = hoverScale[key];
+        const ctaValue = ctaHover[key];
+
+        if (scaleValue) {
+            Animated.spring(scaleValue, {
+                toValue: active ? 1.06 : 1,
+                useNativeDriver: true,
+                friction: 8,
+                tension: 140,
+            }).start();
         }
 
-        Animated.spring(value, {
-            toValue: active ? 1.03 : 1,
-            useNativeDriver: true,
-            friction: 8,
-            tension: 140,
-        }).start();
+        if (ctaValue) {
+            Animated.timing(ctaValue, {
+                toValue: active ? 1 : 0,
+                duration: 180,
+                useNativeDriver: false,
+            }).start();
+        }
     };
 
     const closeOpenMenu = () => {
@@ -358,13 +374,12 @@ export default function ListingPage() {
                     compact
                     announcement={t('listing_page.announcement')}
                     notifyText={t('listing_page.notify')}
-                    currentShortLabel={currentLangOption.shortLabel}
                     currentLang={lang}
                     langOpen={langOpen}
-                    langOptions={LANG_OPTIONS.map((opt) => ({ code: opt.code, label: opt.label }))}
+                    langOptions={LANGUAGE_OPTIONS.map((opt) => ({ code: opt.code, label: opt.label }))}
                     onToggleLang={() => setLangOpen((v) => !v)}
                     onSelectLang={(code) => {
-                        setLanguage(code as AppLang);
+                        setLanguage(code);
                         setLangOpen(false);
                     }}
                 />
@@ -440,9 +455,12 @@ export default function ListingPage() {
                         cardWidth={cardWidth}
                         imageHeight={imageHeight}
                         cardNameSize={cardNameSize}
+                        cardNameLineHeight={cardNameLineHeight}
                         cardPriceSize={cardPriceSize}
+                        cardPriceLineHeight={cardPriceLineHeight}
                         cardAnimById={cardAnimById}
                         hoverScaleById={hoverScale}
+                        ctaHoverById={ctaHover}
                         onHoverChange={animateHover}
                         onOpenDetail={(id) => router.push({ pathname: '/p/[code]', params: { code: String(id) } })}
                         gridGap={gridGap}

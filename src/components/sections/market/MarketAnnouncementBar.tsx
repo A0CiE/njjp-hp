@@ -1,20 +1,21 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import type { AppLanguage } from '../../../i18n/languageOptions';
+import { getLanguageFlagSource } from '../../shared/languageFlags';
 
 type LangOption = {
-    code: string;
+    code: AppLanguage;
     label: string;
 };
 
 type Props = {
     announcement: string;
     notifyText: string;
-    currentShortLabel: string;
-    currentLang: string;
+    currentLang: AppLanguage;
     langOpen: boolean;
     langOptions: LangOption[];
     onToggleLang: () => void;
-    onSelectLang: (code: string) => void;
+    onSelectLang: (code: AppLanguage) => void;
     compact?: boolean;
 };
 
@@ -24,7 +25,6 @@ const OFF_BEIGE = '#ECEADD';
 export default function MarketAnnouncementBar({
     announcement,
     notifyText,
-    currentShortLabel,
     currentLang,
     langOpen,
     langOptions,
@@ -37,29 +37,37 @@ export default function MarketAnnouncementBar({
             <View style={[styles.langWrap, compact ? styles.langWrapCompact : styles.langWrapRegular]}>
                 <Pressable
                     onPress={onToggleLang}
-                    style={({ pressed }) => [
+                    style={({ pressed, hovered }: any) => [
                         styles.langBtn,
                         compact ? styles.langBtnCompact : styles.langBtnRegular,
+                        hovered && styles.langBtnHovered,
                         pressed && styles.langBtnPressed,
                     ]}
                 >
-                    <Text style={styles.langBtnText}>{currentShortLabel}</Text>
-                    <Text style={styles.langCaret}>▾</Text>
+                    <Image
+                        source={getLanguageFlagSource(currentLang)}
+                        style={styles.langBtnFlag}
+                        accessibilityIgnoresInvertColors
+                    />
                 </Pressable>
                 {langOpen && (
                     <View style={[styles.langMenu, compact ? styles.langMenuCompact : styles.langMenuRegular]}>
                         {langOptions.map((option) => {
-                            const active = option.code === currentLang;
                             return (
                                 <Pressable
                                     key={option.code}
                                     onPress={() => onSelectLang(option.code)}
-                                    style={({ pressed }) => [
+                                    style={({ pressed, hovered }: any) => [
                                         styles.langItem,
-                                        active && styles.langItemActive,
+                                        hovered && styles.langItemHovered,
                                         pressed && styles.langItemPressed,
                                     ]}
                                 >
+                                    <Image
+                                        source={getLanguageFlagSource(option.code)}
+                                        style={styles.langItemFlag}
+                                        accessibilityIgnoresInvertColors
+                                    />
                                     <Text style={styles.langItemText}>{option.label}</Text>
                                 </Pressable>
                             );
@@ -76,7 +84,14 @@ export default function MarketAnnouncementBar({
                 {announcement}
             </Text>
 
-            <Pressable style={({ pressed }) => [styles.notifyBtn, compact ? styles.notifyBtnCompact : styles.notifyBtnRegular, pressed && styles.notifyBtnPressed]}>
+            <Pressable
+                style={({ pressed, hovered }: any) => [
+                    styles.notifyBtn,
+                    compact ? styles.notifyBtnCompact : styles.notifyBtnRegular,
+                    hovered && styles.notifyBtnHovered,
+                    pressed && styles.notifyBtnPressed,
+                ]}
+            >
                 <Text style={[styles.notifyText, compact ? styles.notifyTextCompact : styles.notifyTextRegular]}>{notifyText}</Text>
             </Pressable>
         </View>
@@ -109,39 +124,38 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     langWrapCompact: {
-        minWidth: 82,
+        minWidth: 34,
     },
     langWrapRegular: {
-        minWidth: 90,
+        minWidth: 38,
     },
     langBtn: {
         borderWidth: 1,
         borderColor: 'rgba(51,51,52,0.3)',
         borderRadius: 2,
-        paddingHorizontal: 9,
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.22)',
     },
     langBtnCompact: {
+        width: 32,
         height: 28,
     },
     langBtnRegular: {
+        width: 36,
         height: 30,
-        paddingHorizontal: 10,
     },
     langBtnPressed: {
         backgroundColor: 'rgba(51,51,52,0.1)',
     },
-    langBtnText: {
-        color: CHARCOAL,
-        fontSize: 12,
-        fontWeight: '700',
+    langBtnHovered: {
+        backgroundColor: 'rgba(51,51,52,0.08)',
+        borderColor: 'rgba(51,51,52,0.44)',
     },
-    langCaret: {
-        color: 'rgba(51,51,52,0.72)',
-        fontSize: 12,
+    langBtnFlag: {
+        width: 18,
+        height: 18,
+        borderRadius: 9,
     },
     langMenu: {
         position: 'absolute',
@@ -165,16 +179,24 @@ const styles = StyleSheet.create({
     langItem: {
         paddingHorizontal: 10,
         paddingVertical: 8,
-    },
-    langItemActive: {
-        backgroundColor: 'rgba(51,51,52,0.08)',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
     },
     langItemPressed: {
         backgroundColor: 'rgba(51,51,52,0.14)',
     },
+    langItemHovered: {
+        backgroundColor: 'rgba(51,51,52,0.1)',
+    },
     langItemText: {
         color: CHARCOAL,
         fontSize: 12,
+    },
+    langItemFlag: {
+        width: 16,
+        height: 16,
+        borderRadius: 8,
     },
     annText: {
         flex: 1,
@@ -208,6 +230,10 @@ const styles = StyleSheet.create({
     },
     notifyBtnPressed: {
         backgroundColor: 'rgba(51,51,52,0.14)',
+    },
+    notifyBtnHovered: {
+        backgroundColor: 'rgba(51,51,52,0.1)',
+        borderColor: 'rgba(51,51,52,0.55)',
     },
     notifyText: {
         color: CHARCOAL,

@@ -36,10 +36,16 @@ export default function MarketTopNav({
             <NanjiBrand onPress={onBrandPress} wordmarkSize={wordmarkSize} style={styles.brandWrap} />
 
             <View style={[styles.navActions, stack && styles.navActionsStack]}>
-                <Pressable onPress={onPrimaryPress} style={({ pressed }) => [styles.navBtn, pressed && styles.navBtnPressed]}>
+                <Pressable
+                    onPress={onPrimaryPress}
+                    style={({ pressed, hovered }: any) => [styles.navBtn, hovered && styles.navBtnHovered, pressed && styles.navBtnPressed]}
+                >
                     <Text style={styles.navBtnText}>{primaryLabel}</Text>
                 </Pressable>
-                <Pressable onPress={onSearchPress} style={({ pressed }) => [styles.searchBtn, pressed && styles.searchBtnPressed]}>
+                <Pressable
+                    onPress={onSearchPress}
+                    style={({ pressed, hovered }: any) => [styles.searchBtn, hovered && styles.searchBtnHovered, pressed && styles.searchBtnPressed]}
+                >
                     <Text style={styles.searchBtnText}>⌕</Text>
                 </Pressable>
             </View>
@@ -87,6 +93,10 @@ const styles = StyleSheet.create({
     navBtnPressed: {
         backgroundColor: 'rgba(51,51,52,0.14)',
     },
+    navBtnHovered: {
+        backgroundColor: 'rgba(51,51,52,0.1)',
+        borderColor: 'rgba(51,51,52,0.65)',
+    },
     navBtnText: {
         color: CHARCOAL,
         fontSize: 14,
@@ -101,6 +111,9 @@ const styles = StyleSheet.create({
     },
     searchBtnPressed: {
         backgroundColor: '#1f1f20',
+    },
+    searchBtnHovered: {
+        backgroundColor: '#2d2d2f',
     },
     searchBtnText: {
         color: '#FDFBF0',

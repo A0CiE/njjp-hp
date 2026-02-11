@@ -118,7 +118,11 @@ export default function ListingHeroControls({
                         <View style={wrapStyleFor('season')}>
                             <Pressable
                                 onPress={() => onToggleMenu('season')}
-                                style={({ pressed }) => [styles.sortTrigger, pressed && styles.sortTriggerPressed]}
+                                style={({ pressed, hovered }: any) => [
+                                    styles.sortTrigger,
+                                    hovered && styles.sortTriggerHovered,
+                                    pressed && styles.sortTriggerPressed,
+                                ]}
                             >
                                 <Text numberOfLines={1} style={styles.sortTriggerText}>
                                     {selectedSeasonLabel}
@@ -134,9 +138,10 @@ export default function ListingHeroControls({
                                             <Pressable
                                                 key={`season-${option.value}`}
                                                 onPress={() => onSelectSeason(option.value)}
-                                                style={({ pressed }) => [
+                                                style={({ pressed, hovered }: any) => [
                                                     styles.sortItem,
                                                     active && styles.sortItemActive,
+                                                    hovered && styles.sortItemHovered,
                                                     pressed && styles.sortItemPressed,
                                                 ]}
                                             >
@@ -154,7 +159,11 @@ export default function ListingHeroControls({
                         <View style={wrapStyleFor('gender')}>
                             <Pressable
                                 onPress={() => onToggleMenu('gender')}
-                                style={({ pressed }) => [styles.sortTrigger, pressed && styles.sortTriggerPressed]}
+                                style={({ pressed, hovered }: any) => [
+                                    styles.sortTrigger,
+                                    hovered && styles.sortTriggerHovered,
+                                    pressed && styles.sortTriggerPressed,
+                                ]}
                             >
                                 <Text numberOfLines={1} style={styles.sortTriggerText}>
                                     {selectedGenderLabel}
@@ -170,9 +179,10 @@ export default function ListingHeroControls({
                                             <Pressable
                                                 key={`gender-${option.value}`}
                                                 onPress={() => onSelectGender(option.value)}
-                                                style={({ pressed }) => [
+                                                style={({ pressed, hovered }: any) => [
                                                     styles.sortItem,
                                                     active && styles.sortItemActive,
+                                                    hovered && styles.sortItemHovered,
                                                     pressed && styles.sortItemPressed,
                                                 ]}
                                             >
@@ -190,7 +200,11 @@ export default function ListingHeroControls({
                         <View style={wrapStyleFor('sort')}>
                             <Pressable
                                 onPress={() => onToggleMenu('sort')}
-                                style={({ pressed }) => [styles.sortTrigger, pressed && styles.sortTriggerPressed]}
+                                style={({ pressed, hovered }: any) => [
+                                    styles.sortTrigger,
+                                    hovered && styles.sortTriggerHovered,
+                                    pressed && styles.sortTriggerPressed,
+                                ]}
                             >
                                 <Text numberOfLines={1} style={styles.sortTriggerText}>
                                     {selectedSortLabel}
@@ -206,9 +220,10 @@ export default function ListingHeroControls({
                                             <Pressable
                                                 key={`sort-${option.value}`}
                                                 onPress={() => onSelectSort(option.value)}
-                                                style={({ pressed }) => [
+                                                style={({ pressed, hovered }: any) => [
                                                     styles.sortItem,
                                                     active && styles.sortItemActive,
+                                                    hovered && styles.sortItemHovered,
                                                     pressed && styles.sortItemPressed,
                                                 ]}
                                             >
@@ -311,6 +326,10 @@ const styles = StyleSheet.create({
     sortTriggerPressed: {
         backgroundColor: 'rgba(51,51,52,0.08)',
     },
+    sortTriggerHovered: {
+        backgroundColor: 'rgba(51,51,52,0.06)',
+        borderColor: 'rgba(51,51,52,0.34)',
+    },
     sortTriggerText: {
         color: CHARCOAL,
         fontSize: 15,
@@ -347,6 +366,9 @@ const styles = StyleSheet.create({
     },
     sortItemPressed: {
         backgroundColor: 'rgba(51,51,52,0.06)',
+    },
+    sortItemHovered: {
+        backgroundColor: 'rgba(51,51,52,0.1)',
     },
     sortItemText: {
         color: CHARCOAL,

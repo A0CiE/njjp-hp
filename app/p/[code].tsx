@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { useI18n } from '../../src/i18n/provider';
+import { LANGUAGE_OPTIONS, toAppLanguage, type AppLanguage } from '../../src/i18n/languageOptions';
 import { loadListingProducts, type RuntimeListingProduct } from '../../src/data/listingProductsRuntime';
 import { withImageSize } from '../../src/data/imageUrl';
 import MarketAnnouncementBar from '../../src/components/sections/market/MarketAnnouncementBar';
@@ -12,17 +13,7 @@ import ProductNotFoundSection from '../../src/components/sections/detail/Product
 import ProductDetailSection from '../../src/components/sections/detail/ProductDetailSection';
 import Footer from '../../src/components/sections/Footer';
 
-type AppLang = 'en' | 'ja' | 'zh';
-
 const OFF_BEIGE = '#ECEADD';
-
-const LANG_OPTIONS: { code: AppLang; shortLabel: string; label: string }[] = [
-    { code: 'en', shortLabel: 'EN', label: 'English' },
-    { code: 'zh', shortLabel: 'ZH', label: '中文' },
-    { code: 'ja', shortLabel: 'JA', label: '日本語' },
-];
-
-const toLang = (v: string): AppLang => (v === 'zh' || v === 'ja' || v === 'en' ? v : 'en');
 
 export default function ProductDetailPage() {
     const router = useRouter();
@@ -67,12 +58,12 @@ export default function ProductDetailPage() {
     const productIndex = useMemo(() => products.findIndex((item) => item.id === productId), [productId, products]);
     const product = productIndex >= 0 ? products[productIndex] : null;
 
-    const lang: AppLang = toLang(currentLanguage);
-    const currentLangOption = LANG_OPTIONS.find((option) => option.code === lang) ?? LANG_OPTIONS[0];
+    const lang: AppLanguage = toAppLanguage(currentLanguage);
 
     const isMobile = width <= 1120;
     const isPhone = width <= 760;
-    const heroTitleSize = isPhone ? 42 : isMobile ? 54 : 74;
+    const productNameFontSize = isPhone ? 28 : isMobile ? 36 : 50;
+    const productNameLineHeight = isPhone ? 27 : isMobile ? 34 : 48;
     const imageHeight = isPhone ? 360 : isMobile ? 460 : 760;
     const brandWordmarkSize = isPhone ? 18 : isMobile ? 22 : 34;
 
@@ -100,13 +91,12 @@ export default function ProductDetailPage() {
                     compact={isPhone}
                     announcement={t('detail_page.announcement')}
                     notifyText={t('detail_page.notify')}
-                    currentShortLabel={currentLangOption.shortLabel}
                     currentLang={lang}
                     langOpen={langOpen}
-                    langOptions={LANG_OPTIONS.map((opt) => ({ code: opt.code, label: opt.label }))}
+                    langOptions={LANGUAGE_OPTIONS.map((opt) => ({ code: opt.code, label: opt.label }))}
                     onToggleLang={() => setLangOpen((v) => !v)}
                     onSelectLang={(code) => {
-                        setLanguage(code as AppLang);
+                        setLanguage(code);
                         setLangOpen(false);
                     }}
                 />
@@ -136,7 +126,8 @@ export default function ProductDetailPage() {
                             imageUri={imageUri}
                             imagePlaceholderText={t('detail_page.image_preparing')}
                             imageHeight={imageHeight}
-                            heroTitleSize={heroTitleSize}
+                            productNameFontSize={productNameFontSize}
+                            productNameLineHeight={productNameLineHeight}
                             name={product.productName}
                             productCodeLabel={t('detail_page.product_code')}
                             productCode={product.code ?? ''}

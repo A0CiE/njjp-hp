@@ -9,7 +9,15 @@ type Props = {
 
 export default function NanjiBrand({ onPress, wordmarkSize = 34, style }: Props) {
     return (
-        <Pressable onPress={onPress} style={[styles.wrap, style]}>
+        <Pressable
+            onPress={onPress}
+            style={({ pressed, hovered }: any) => [
+                styles.wrap,
+                style,
+                hovered && styles.wrapHovered,
+                pressed && styles.wrapPressed,
+            ]}
+        >
             <View style={styles.mark}>
                 <Text style={styles.markText}>NJ</Text>
             </View>
@@ -27,6 +35,15 @@ const styles = StyleSheet.create({
         gap: 10,
         minWidth: 0,
         flexShrink: 1,
+        borderRadius: 8,
+        paddingHorizontal: 2,
+        paddingVertical: 1,
+    },
+    wrapHovered: {
+        backgroundColor: 'rgba(51,51,52,0.08)',
+    },
+    wrapPressed: {
+        backgroundColor: 'rgba(51,51,52,0.14)',
     },
     mark: {
         width: 36,
