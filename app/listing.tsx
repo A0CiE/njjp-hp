@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
     Animated,
+    Platform,
     ScrollView,
     StyleSheet,
     TextInput,
@@ -28,6 +29,7 @@ type SortKey = 'default' | 'price' | 'productNumber' | 'productYear';
 const ALL_FILTER_VALUE = '__ALL__';
 const OFF_BEIGE = '#ECEADD';
 const CHARCOAL = '#333334';
+const WIDTH_CHANGE_EPSILON = 0.5;
 
 type ApparelCard = {
     id: number;
@@ -89,11 +91,22 @@ const compareByYearSeasonCode = (a: ApparelCard, b: ApparelCard): number => {
     return compareById(a, b);
 };
 
+const getViewportWidthWithoutScrollbar = (fallbackWidth: number): number => {
+    if (Platform.OS !== 'web') {
+        return fallbackWidth;
+    }
+    if (typeof document === 'undefined') {
+        return fallbackWidth;
+    }
+    const docWidth = document.documentElement?.clientWidth ?? 0;
+    return docWidth > 0 ? docWidth : fallbackWidth;
+};
+
 export default function ListingPage() {
     const router = useRouter();
     const { currentLanguage, setLanguage } = useI18n();
     const { t } = useTranslation();
-    const { width } = useWindowDimensions();
+    const { width: windowWidth } = useWindowDimensions();
 
     const [searchOpen, setSearchOpen] = useState(false);
     const [query, setQuery] = useState('');
@@ -105,6 +118,7 @@ export default function ListingPage() {
     const [rawProducts, setRawProducts] = useState<RuntimeListingProduct[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hoverBindingsVersion, setHoverBindingsVersion] = useState(0);
+    const [viewportWidth, setViewportWidth] = useState(windowWidth);
 
     const heroReveal = useRef(new Animated.Value(0)).current;
     const sortReveal = useRef(new Animated.Value(0)).current;
@@ -135,6 +149,27 @@ export default function ListingPage() {
             cancelled = true;
         };
     }, []);
+
+    useEffect(() => {
+        setViewportWidth(windowWidth);
+    }, [windowWidth]);
+
+    useEffect(() => {
+        if (Platform.OS !== 'web' || typeof window === 'undefined') {
+            return;
+        }
+
+        const syncViewportWidth = () => {
+            const nextWidth = getViewportWidthWithoutScrollbar(windowWidth);
+            setViewportWidth((prev) => (Math.abs(prev - nextWidth) > WIDTH_CHANGE_EPSILON ? nextWidth : prev));
+        };
+
+        syncViewportWidth();
+        window.addEventListener('resize', syncViewportWidth);
+        return () => {
+            window.removeEventListener('resize', syncViewportWidth);
+        };
+    }, [windowWidth]);
 
     useEffect(() => {
         Animated.parallel([
@@ -310,23 +345,24 @@ export default function ListingPage() {
     const selectedGenderLabel = genderOptions.find((option) => option.value === genderFilter)?.label ?? t('listing_page.all_option');
     const sortHeading = t('listing_page.sort_heading', { count: filtered.length });
 
-    const isMobile = width <= 800;
-    const isTablet = width <= 1200;
-    const containerPadding = width > 1320 ? 66 : width > 980 ? 40 : 18;
-    const gridGap = width <= 980 ? 20 : 28;
-    const contentWidth = Math.max(0, width - containerPadding * 2);
-    const minSquareCardWidth = isMobile ? 220 : width <= 1200 ? 260 : 300;
+    const layoutWidth = getViewportWidthWithoutScrollbar(viewportWidth);
+    const isMobile = layoutWidth <= 800;
+    const isTablet = layoutWidth <= 1200;
+    const containerPadding = layoutWidth > 1320 ? 66 : layoutWidth > 980 ? 40 : 18;
+    const gridGap = layoutWidth <= 980 ? 20 : 28;
+    const contentWidth = Math.max(0, layoutWidth - containerPadding * 2);
+    const minSquareCardWidth = isMobile ? 220 : layoutWidth <= 1200 ? 260 : 300;
     const maxColumns = isMobile ? 2 : 4;
     const fitColumns = Math.max(1, Math.floor((contentWidth + gridGap) / (minSquareCardWidth + gridGap)));
     const columns = Math.max(1, Math.min(maxColumns, fitColumns));
-    const desktopHeroMinWidth = width > 1480 ? 520 : 460;
+    const desktopHeroMinWidth = layoutWidth > 1480 ? 520 : 460;
     const desktopControlMaxByRoom = Math.max(420, contentWidth - desktopHeroMinWidth - 20);
     const controlPanelWidth = isMobile
         ? contentWidth
         : Math.max(420, Math.min(840, Math.min(contentWidth * 0.58, desktopControlMaxByRoom)));
     const heroTextMaxWidth = isMobile ? contentWidth : Math.max(320, contentWidth - controlPanelWidth - 20);
     const cardWidth = Math.max(180, (contentWidth - gridGap * (columns - 1)) / columns);
-    const heroFontSize = Math.max(50, Math.min(74, width * 0.053));
+    const heroFontSize = Math.max(50, Math.min(74, layoutWidth * 0.053));
     const brandWordmarkSize = isMobile ? 22 : 34;
     const imageHeight = cardWidth;
     const sortLabelSize = isMobile ? 16 : 25;

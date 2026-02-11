@@ -45,7 +45,6 @@ export default function ListingProductGrid({
 }: Props) {
     return (
         <View style={[styles.grid, { gap: gridGap }]}>
-            <View style={[styles.gridFullWidth, { gap: gridGap }]}>
                 {isLoading ? (
                     <View style={styles.stateWrap}>
                         <Text style={styles.stateText}>{loadingText}</Text>
@@ -79,7 +78,6 @@ export default function ListingProductGrid({
                         );
                     })
                 )}
-            </View>
         </View>
     );
 }
@@ -88,12 +86,6 @@ const styles = StyleSheet.create({
     grid: {
         position: 'relative',
         zIndex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
-    gridFullWidth: {
-        width: '100%',
-        maxWidth: '100%',
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
