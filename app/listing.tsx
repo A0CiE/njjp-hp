@@ -29,7 +29,6 @@ type SortKey = 'default' | 'price' | 'productNumber' | 'productYear';
 const ALL_FILTER_VALUE = '__ALL__';
 const OFF_BEIGE = '#ECEADD';
 const CHARCOAL = '#333334';
-const WIDTH_CHANGE_EPSILON = 0.5;
 
 type ApparelCard = {
     id: number;
@@ -95,11 +94,7 @@ const getViewportWidthWithoutScrollbar = (fallbackWidth: number): number => {
     if (Platform.OS !== 'web') {
         return fallbackWidth;
     }
-    if (typeof document === 'undefined') {
-        return fallbackWidth;
-    }
-    const docWidth = document.documentElement?.clientWidth ?? 0;
-    return docWidth > 0 ? docWidth : fallbackWidth;
+    return Math.max(0, fallbackWidth - 15);
 };
 
 export default function ListingPage() {
@@ -118,7 +113,6 @@ export default function ListingPage() {
     const [rawProducts, setRawProducts] = useState<RuntimeListingProduct[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hoverBindingsVersion, setHoverBindingsVersion] = useState(0);
-    const [viewportWidth, setViewportWidth] = useState(windowWidth);
 
     const heroReveal = useRef(new Animated.Value(0)).current;
     const sortReveal = useRef(new Animated.Value(0)).current;
@@ -149,27 +143,6 @@ export default function ListingPage() {
             cancelled = true;
         };
     }, []);
-
-    useEffect(() => {
-        setViewportWidth(windowWidth);
-    }, [windowWidth]);
-
-    useEffect(() => {
-        if (Platform.OS !== 'web' || typeof window === 'undefined') {
-            return;
-        }
-
-        const syncViewportWidth = () => {
-            const nextWidth = getViewportWidthWithoutScrollbar(windowWidth);
-            setViewportWidth((prev) => (Math.abs(prev - nextWidth) > WIDTH_CHANGE_EPSILON ? nextWidth : prev));
-        };
-
-        syncViewportWidth();
-        window.addEventListener('resize', syncViewportWidth);
-        return () => {
-            window.removeEventListener('resize', syncViewportWidth);
-        };
-    }, [windowWidth]);
 
     useEffect(() => {
         Animated.parallel([
@@ -345,7 +318,7 @@ export default function ListingPage() {
     const selectedGenderLabel = genderOptions.find((option) => option.value === genderFilter)?.label ?? t('listing_page.all_option');
     const sortHeading = t('listing_page.sort_heading', { count: filtered.length });
 
-    const layoutWidth = getViewportWidthWithoutScrollbar(viewportWidth);
+    const layoutWidth = getViewportWidthWithoutScrollbar(windowWidth);
     const isMobile = layoutWidth <= 800;
     const isTablet = layoutWidth <= 1200;
     const containerPadding = layoutWidth > 1320 ? 66 : layoutWidth > 980 ? 40 : 18;
