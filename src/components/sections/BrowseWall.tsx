@@ -6,17 +6,20 @@ import { useTranslation } from 'react-i18next';
 
 import { layout, metrics, typeScale } from '../../theme';
 import { loadListingProducts, type RuntimeListingProduct } from '../../data/listingProductsRuntime';
+import { withImageSize } from '../../data/imageUrl';
 
 type TileImage = {
     id: string;
-    code: string;
-    source: ImageSourcePropType;
+    productId: number;
+    code: string | null;
+    source: ImageSourcePropType | null;
     tint: string;
 };
 
 type TileProps = {
     tile: TileImage;
     size: number;
+    placeholderText: string;
     onPress: () => void;
 };
 
@@ -55,6 +58,7 @@ const makeTiles = (pool: TileImage[], count: number, seedBase: number): TileImag
         const picked = pool[idx];
         out.push({
             id: `${picked.id}-${i}-${seed}`,
+            productId: picked.productId,
             code: picked.code,
             source: picked.source,
             tint: picked.tint,
@@ -71,7 +75,7 @@ const hashToTilt = (id: string) => {
     return { x, y };
 };
 
-function ReflectiveTile({ tile, size, onPress }: TileProps) {
+function ReflectiveTile({ tile, size, placeholderText, onPress }: TileProps) {
     const tiltX = useRef(new Animated.Value(0)).current;
     const tiltY = useRef(new Animated.Value(0)).current;
     const hover = useRef(new Animated.Value(0)).current;
@@ -171,7 +175,13 @@ function ReflectiveTile({ tile, size, onPress }: TileProps) {
             onPressOut={reset}
             style={[styles.tile, { width: size, height: size }, tiltStyle as any]}
         >
-            <Animated.Image source={tile.source} resizeMode="cover" style={styles.tileImage} />
+            {tile.source ? (
+                <Animated.Image source={tile.source} resizeMode="cover" style={styles.tileImage} />
+            ) : (
+                <View style={styles.tilePlaceholderWrap}>
+                    <Text style={styles.tilePlaceholderText}>{placeholderText}</Text>
+                </View>
+            )}
             <View style={[styles.tileTint, { backgroundColor: tile.tint }]} />
             <View style={styles.tileShade} />
 
@@ -248,21 +258,19 @@ const BrowseWall: React.FC = () => {
     );
 
     const sourcePool = useMemo<TileImage[]>(() => {
-        return products
-            .map((item, index) => {
-                const uri = (item.imageUrl || '').trim();
-                if (!uri) {
-                    return null;
-                }
+        const allTiles = products.map((item, index) => {
+            const uri = withImageSize(item.imageUrl, 600);
+            return {
+                id: `${item.id}-${index}`,
+                productId: item.id,
+                code: item.code,
+                source: uri ? ({ uri } as ImageSourcePropType) : null,
+                tint: pickTint(item.code || String(item.id)),
+            };
+        });
 
-                return {
-                    id: `${item.code || 'item'}-${index}`,
-                    code: item.code,
-                    source: { uri } as ImageSourcePropType,
-                    tint: pickTint(item.code || String(index)),
-                };
-            })
-            .filter((tile): tile is TileImage => tile !== null);
+        const tilesWithImage = allTiles.filter((tile) => tile.source !== null);
+        return tilesWithImage.length > 0 ? tilesWithImage : allTiles;
     }, [products]);
 
     const rowTiles = useMemo(() => {
@@ -344,9 +352,8 @@ const BrowseWall: React.FC = () => {
                                             key={tile.id}
                                             tile={tile}
                                             size={tileSize}
-                                            onPress={() =>
-                                                router.push(tile.code ? `/p/${encodeURIComponent(tile.code)}` : '/listing')
-                                            }
+                                            placeholderText={t('browse_wall.image_preparing')}
+                                            onPress={() => router.push(`/p/${tile.productId}`)}
                                         />
                                     ))}
                                 </Animated.View>
@@ -355,21 +362,6 @@ const BrowseWall: React.FC = () => {
                     })}
                 </View>
 
-                <LinearGradient
-                    pointerEvents="none"
-                    colors={['rgba(0,0,0,0.62)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0.68)']}
-                    locations={[0, 0.28, 1]}
-                    start={{ x: 0.5, y: 0 }}
-                    end={{ x: 0.5, y: 1 }}
-                    style={StyleSheet.absoluteFillObject}
-                />
-                <LinearGradient
-                    pointerEvents="none"
-                    colors={['rgba(0,0,0,0.34)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0.34)']}
-                    start={{ x: 0, y: 0.5 }}
-                    end={{ x: 1, y: 0.5 }}
-                    style={StyleSheet.absoluteFillObject}
-                />
             </View>
         </View>
     );
@@ -444,6 +436,20 @@ const styles = StyleSheet.create({
     tileImage: {
         width: '100%',
         height: '100%',
+    },
+    tilePlaceholderWrap: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#1a1d23',
+        paddingHorizontal: 10,
+    },
+    tilePlaceholderText: {
+        color: 'rgba(245,247,251,0.9)',
+        fontSize: 12,
+        textAlign: 'center',
+        fontWeight: '600',
     },
     tileTint: {
         ...StyleSheet.absoluteFillObject,

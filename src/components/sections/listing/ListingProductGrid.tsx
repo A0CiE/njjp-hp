@@ -2,7 +2,8 @@ import React from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 
 type Item = {
-    code: string;
+    id: number;
+    code: string | null;
     name: string;
     price: number;
     imageUri: string;
@@ -13,6 +14,7 @@ type Props = {
     loadingText: string;
     emptyText: string;
     viewDetailsText: string;
+    imagePlaceholderText: string;
     items: Item[];
     cardWidth: number;
     imageHeight: number;
@@ -20,8 +22,8 @@ type Props = {
     cardPriceSize: number;
     cardAnimById: Record<string, Animated.Value | undefined>;
     hoverScaleById: Record<string, Animated.Value | undefined>;
-    onHoverChange: (code: string, active: boolean) => void;
-    onOpenDetail: (code: string) => void;
+    onHoverChange: (id: number, active: boolean) => void;
+    onOpenDetail: (id: number) => void;
     gridGap: number;
 };
 
@@ -34,6 +36,7 @@ export default function ListingProductGrid({
     loadingText,
     emptyText,
     viewDetailsText,
+    imagePlaceholderText,
     items,
     cardWidth,
     imageHeight,
@@ -57,8 +60,9 @@ export default function ListingProductGrid({
                 </View>
             ) : (
                 items.map((item) => {
-                    const reveal = cardAnimById[item.code];
-                    const scale = hoverScaleById[item.code];
+                    const itemKey = String(item.id);
+                    const reveal = cardAnimById[itemKey];
+                    const scale = hoverScaleById[itemKey];
                     const revealStyle = {
                         opacity: reveal ?? 1,
                         transform: reveal
@@ -74,11 +78,11 @@ export default function ListingProductGrid({
                     };
 
                     return (
-                        <Animated.View key={item.code} style={[styles.cardShell, { width: cardWidth }, revealStyle]}>
+                        <Animated.View key={itemKey} style={[styles.cardShell, { width: cardWidth }, revealStyle]}>
                             <Pressable
-                                onHoverIn={() => onHoverChange(item.code, true)}
-                                onHoverOut={() => onHoverChange(item.code, false)}
-                                onPress={() => onOpenDetail(item.code)}
+                                onHoverIn={() => onHoverChange(item.id, true)}
+                                onHoverOut={() => onHoverChange(item.id, false)}
+                                onPress={() => onOpenDetail(item.id)}
                                 style={styles.cardPress}
                             >
                                 <View style={[styles.imagePanel, { height: imageHeight }]}> 
@@ -93,7 +97,9 @@ export default function ListingProductGrid({
                                                 },
                                             ]}
                                         />
-                                    ) : null}
+                                    ) : (
+                                        <Text style={styles.imagePlaceholder}>{imagePlaceholderText}</Text>
+                                    )}
                                 </View>
 
                                 <View style={styles.cardTextWrap}>
@@ -108,7 +114,7 @@ export default function ListingProductGrid({
                                     >
                                         {item.name}
                                     </Text>
-                                    <Text style={styles.cardCode}>{item.code}</Text>
+                                    <Text style={styles.cardCode}>{item.code ?? ''}</Text>
                                     <Text
                                         style={[
                                             styles.cardPrice,
@@ -122,7 +128,7 @@ export default function ListingProductGrid({
                                     </Text>
 
                                     <Pressable
-                                        onPress={() => onOpenDetail(item.code)}
+                                        onPress={() => onOpenDetail(item.id)}
                                         style={({ pressed }) => [styles.viewBtn, pressed && styles.viewBtnPressed]}
                                     >
                                         <Text style={styles.viewBtnText}>{viewDetailsText}</Text>
@@ -175,6 +181,12 @@ const styles = StyleSheet.create({
     itemImage: {
         width: '78%',
         height: '78%',
+    },
+    imagePlaceholder: {
+        color: 'rgba(51,51,52,0.6)',
+        fontSize: 14,
+        textAlign: 'center',
+        paddingHorizontal: 16,
     },
     cardTextWrap: {
         alignItems: 'center',

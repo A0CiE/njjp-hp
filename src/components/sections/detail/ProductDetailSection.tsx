@@ -9,6 +9,7 @@ type DetailRow = {
 type Props = {
     isMobile: boolean;
     imageUri: string;
+    imagePlaceholderText: string;
     imageHeight: number;
     heroTitleSize: number;
     name: string;
@@ -29,6 +30,7 @@ const PRICE_GREEN = '#366E56';
 export default function ProductDetailSection({
     isMobile,
     imageUri,
+    imagePlaceholderText,
     imageHeight,
     heroTitleSize,
     name,
@@ -44,7 +46,11 @@ export default function ProductDetailSection({
     return (
         <View style={[styles.contentRow, isMobile && styles.contentCol]}>
             <View style={[styles.imagePanel, { height: imageHeight }, isMobile && styles.imagePanelMobile]}>
-                {imageUri ? <Image source={{ uri: imageUri }} resizeMode="contain" style={styles.productImage} /> : null}
+                {imageUri ? (
+                    <Image source={{ uri: imageUri }} resizeMode="contain" style={styles.productImage} />
+                ) : (
+                    <Text style={styles.imagePlaceholder}>{imagePlaceholderText}</Text>
+                )}
             </View>
 
             <View style={[styles.detailCol, isMobile && styles.detailColMobile]}>
@@ -107,6 +113,12 @@ const styles = StyleSheet.create({
     productImage: {
         width: '74%',
         height: '74%',
+    },
+    imagePlaceholder: {
+        color: 'rgba(51,51,52,0.64)',
+        fontSize: 15,
+        textAlign: 'center',
+        paddingHorizontal: 18,
     },
     detailCol: {
         flex: 0.72,

@@ -1,44 +1,67 @@
-id|品番|シーズン|性別|商品名|カラー展開|ジャンル|サイズ展開|素材構成|特長|副資材仕様|仕入価格|画像URL
-1|NX251DY001|秋冬|メンズ|ラペルコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4208|https://drive.google.com/thumbnail?id=1Hvpo2U9FlbBcbZM00_rMnWFOUlHEqZOU&sz=s4000
-2|VX252DY002|秋冬|レディース|クラシックノッチドラペルショートコート|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4175|https://drive.google.com/thumbnail?id=1SVWH2hq-INzRx-HoR_AfMNYEyBiZnvZb&sz=s4000
-3|VX252DY003|秋冬|レディース|クラシックノッチドラペルロングコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|5359|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-4|VX252DY005|秋冬|レディース|エレガントフード付きショートコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、|4931|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-5|VX252DY006|秋冬|レディース|エレガントフード付きロングコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、|6181|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-6|VX252DY007|秋冬|レディース|ガウン風リラックスショートコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4241|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-7|VX252DY008|秋冬|レディース|ガウン風リラックスロングコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|5523|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-8|VX252DY009|秋冬|レディース|ヴィンテージドレープカラーショートコート|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|4800|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-9|VX252DY010|秋冬|レディース|ヴィンテージドレープカラーロングコート|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|5194|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-10|VX252DY011|秋冬|レディース|レイヤードデザインコート|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、|6115|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-11|VX252DY012|秋冬|レディース|レイヤードデザインベスト|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|4044|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-12|VX252DY004|秋冬|レディース|ノーカラーミドル丈コート|巴黎灰 / 焦岩绿 / 复古黑 / 燕麦白 / 赤陶红|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|4175|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-13|NX251DY002|秋冬|メンズ|ニットメルトンジャケット|经典黑 / 燕麦 / 深驼 / 经典驼 / 咖棕 / 静谧灰 / 青烟灰 / 深花灰暮色蓝|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン、 / UNIMODAボタン|3912|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-14|NX251WK001|秋|メンズ|ストレートパンツ|中灰 / 浅灰|スウェットパンツ|M-XL|ポリエステル 100%|通気性|COATS社製糸|1036|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-15|NX251WK002|秋|メンズ|ジョガーパンツ|中灰 / 浅灰|スウェットパンツ|M-XXL|ポリエステル 100%|通気性|COATS社製糸|1019|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-16|NX252WK001|秋|レディース|ストレートパンツ|0|スウェットパンツ|M-XL|ポリエステル 100%|通気性|COATS社製糸|980|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-17|NX252WK002|秋|レディース|ジョガーパンツ|中灰 / 浅灰|スウェットパンツ|M-XL|ポリエステル 100%|通気性|COATS社製糸|980|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-18|NP30124F001|秋冬|メンズ|発熱保温インナー|黑色 / 奶白 / 浅米灰 / 深灰|保温|M-3XL|アクリル繊維 33.3% / ポリエステル 32.8% / レーヨン 22.2% / ポリウレタン 11.7%|吸湿、発熱|COATS社製糸|1121|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-19|NP30224F001|秋冬|レディース|発熱保温インナー|黑色 / 米白 / 浅米灰 / 深灰|保温|S-XXL|アクリル繊維 33.3% / ポリエステル 32.8% / レーヨン 22.2% / ポリウレタン 11.7%|吸湿、発熱|COATS社製糸|894|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-20|NA10624F001|秋冬|レディース|ハイウエストレギンス|黑色|保温|S-XXL|表地： / ナイロン 77.8% / ポリウレタン 22.2% / 裏地： / ポリエステル 88.8% / ポリウレタン 11.2%|フリーカット、 / 高伸縮性、 / 抗ピリング性、 / 吸湿、 / 通気性、 / 静電気防止、 / 変形しにくい|COATS社製糸|1045|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-21|NA10624F002|秋冬|レディース|フレアレギンス|黑色|保温|S-XXL|表地： / ナイロン 77.8% / ポリウレタン 22.2% / 裏地： / ポリエステル 88.8% / ポリウレタン 11.2%|下腹補正、 / ヒップアップ、 / シームレス|COATS社製糸|1266|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-22|N251TX004|夏|メンズ|速乾Tシャツ|白色 / 灰色 / 黑色|速乾|M-3XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|307|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-23|N252TX003|夏|レディース|速乾Tシャツ|白色 / 灰色 / 黑色|速乾|S-2XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|263|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-24|NX251TX005|夏|メンズ|オーバーサイズ速乾Tシャツ|黑色 / 白色 / 灰色|速乾|M-L|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|454|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-25|NX251TX006|夏|メンズ|長袖Tシャツ|黑色 / 白色 / 灰色|速乾|M-XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|503|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-26|NX251BX001|夏|メンズ|タンクトップ|黑色 / 白色 / 灰色|速乾|M-XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|339|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-27|NX251CK002|夏|メンズ|軽量パンツ|黑色 / 灰色 / 藏青|速乾|M-XXL|ポリエステル 89.1% / ポリウレタン 10.9%|速乾、通気性|COATS社製糸、|827|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-28|NX251DK002|夏|メンズ|軽量短パンツ|黑色 / 灰色 / 藏青|速乾|M-XXL|ポリエステル 89.1% / ポリウレタン 10.9%|速乾、通気性|COATS社製糸|674|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-29|NX251CK003|夏|メンズ|カジュアルパンツ|黑色 / 灰色 / 卡其色|速乾|M-XXL|ポリエステル 79% / ポリウレタン 21%|冷感、通気性|COATS社製糸|879|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-30|NA10124B002|春夏|レディース|UVカットスケープ型パーカー|岩紫 / 冰川白 / 极光黑 / 冷灰 / 软糖棕 / 杏肤 / 杏仁色|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1450|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-31|NA10124B003|春夏|レディース|ベーシックUVカットパーカー|杏肤 / 冰川白 / 极光黑 / 冷灰 / 软糖棕 / 杏仁色 / 岩紫|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1677|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-32|NA10124B004|春夏|レディース|UVカットスリムフィットパーカー|杏仁色 / 冰川白 / 极光黑 / 冷灰 / 软糖棕 / 杏肤 / 岩紫|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1322|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-33|NA10124B005|春夏|レディース|UVカットスピンドルパーカー|极光黑 / 冰川白 / 冷灰 / 软糖棕 / 杏肤 / 杏仁色 / 岩紫|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1404|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-34|NA10124B006|春夏|レディース|UVカットシャツ型パーカー|极光黑 / 冰川白 / 冷灰 / 软糖棕|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸|1502|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-35|NA10224B001|春夏|レディース|UVカットワイドパンツ|极光黑 / 摩卡灰 / 软糖棕 / 岩紫|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸|1246|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-36|NA10224B002|春夏|レディース|UVカットジョガーパンツ|极光黑 / 摩卡灰 / 软糖棕 / 岩紫|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸|1292|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-37|NA20124B001|春夏|メンズ|UVカットフード付きパーカー|冰川白 / 极光黑 / 冷灰 / 软糖棕 / 藏蓝 / 矿石灰|uvカット|M-XXL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1746|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-38|NA20124B002|春夏|メンズ|UVカットスタンドカラーパーカー|冰川白 / 极光黑 / 冷灰 / 软糖棕 / 藏蓝 / 矿石灰|uvカット|M-XXL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1683|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-39|NA20124B003|春夏|メンズ|UVカット襟付きパーカー|冰川白 / 极光黑 / 冷灰 / 软糖棕 / 藏蓝 / 矿石灰|uvカット|M-XXL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1759|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-40|NA20724E001|春夏|メンズ|ベーシックポロシャツ|藏蓝 / 海盐白 / 摩卡灰 / 碳黑 / 榛果色|uvカット|M-XXL|ナイロン 91% / ポリウレタン 9%|接触冷感、 / uvカット|COATS社製糸、 / SHIMADAボタン|1124|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-41|NA10724E001|春夏|レディース|ベーシックポロシャツ|冰川蓝 / 海盐白 / 摩卡灰 / 碳黑 / 杏肤|uvカット|S-XL|ナイロン 91% / ポリウレタン 9%|接触冷感、 / uvカット|COATS社製糸、 / SHIMADAボタン|1036|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-42|NX252YJ001|春夏|レディース|フレアヨガパンツ|黑色 / 咖啡 / 蓝色|保温|S-XL|ナイロン 80% / ポリウレタン 20%|肌感覚|COATS社製糸|1052|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
-43|NX252YJ002|春夏|レディース|ハイウエストヨガパンツ|黑色 / 咖啡 / 蓝色|保温|S-XL|ナイロン 80% / ポリウレタン 20%|肌感覚|COATS社製糸|986|http://tools.buerokober.de/dummyimage/600x600/000/fff.jpg
+番号|品番|発売年|シーズン|性別|商品名|カラー展開|ジャンル|サイズ展開|素材構成|特長|副資材仕様|仕入価格|画像URL
+1|NX251DY001|26|秋冬|メンズ|ラペルコート|ブラック|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4208|https://drive.google.com/thumbnail?id=1Z3mAe9NV46oS3wuxqHg-b8pg_dZbsvbX
+2|VX252DY002|26|秋冬|レディース|クラシックノッチドラペルショートコート|パリグレー|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4175|https://drive.google.com/thumbnail?id=1XZ8F00w8AZIPGf4cDEb3P5zcXdKQeGrQ
+3|VX252DY003|26|秋冬|レディース|クラシックノッチドラペルロングコート|ダークグレー|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|5359|https://drive.google.com/thumbnail?id=1kz1zKcvRnA_hG-hslT4sekr9UQzVS9dB
+4|VX252DY005|26|秋冬|レディース|エレガントフード付きショートコート|ブラック|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、|4931|https://drive.google.com/thumbnail?id=1gO8OnG46MHuovvgOuglQulQBc6WtLm2l
+5|VX252DY006|26|秋冬|レディース|エレガントフード付きロングコート|キャメル|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、|6181|https://drive.google.com/thumbnail?id=1deYX4YZb5edY1beF7AdSDOyvYmbJVNmg
+6|VX252DY007|26|秋冬|レディース|ガウン風リラックスショートコート|キャメル|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|4241|https://drive.google.com/thumbnail?id=1XD1XwIWNc59uLCHuFKnIclLn-wSnJXXi
+7|VX252DY008|26|秋冬|レディース|ガウン風リラックスロングコート|キャメル|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|5523|https://drive.google.com/thumbnail?id=1JuLMhy4Y_F4Uw-L0v11sW_-_MeW22Wvq
+8|VX252DY009|26|秋冬|レディース|ヴィンテージドレープカラーショートコート|オートミールホワイト|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|4800|https://drive.google.com/thumbnail?id=1sYamoQYD4KR1P-lwlPrX2PGQZ-yuMKqF
+9|VX252DY010|26|秋冬|レディース|ヴィンテージドレープカラーロングコート|オートミール|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン|5194|https://drive.google.com/thumbnail?id=16xbUxOSf1yORVPma9xzneJ0cNC1RTum7
+10|VX252DY011|26|秋冬|レディース|レイヤードデザインコート|オートミールホワイト|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、|6115|https://drive.google.com/thumbnail?id=1sKkvlKHLxVV7Ed674n2Y1eZQnzu3I2pE
+11|VX252DY012|26|秋冬|レディース|レイヤードデザインベスト|オートミールホワイト|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|4044|https://drive.google.com/thumbnail?id=1qNkft1snFU2hEn83FHUvR1RwQF5FLpVd
+12|VX252DY004|26|秋冬|レディース|ノーカラーミドル丈コート|パリグレー|コート|S-XXL|ポリエステル 81.2% / ウール 10.8% / レーヨン 8.0%|一枚仕立、 / 厚みあり|COATS社製糸、 / UNIMODAボタン|4175|https://drive.google.com/thumbnail?id=1Qrkl37ngiOM0_ClP8_xURrbOvC7wsGdg
+13|NX251DY002|26|秋冬|メンズ|ニットメルトンジャケット|ダークグレー|コート|S-XXL|ポリエステル 100%|洗濯機洗い可|COATS社製糸、 / UNIMODAボタン、 / UNIMODAボタン|3912|https://drive.google.com/thumbnail?id=1EE_TUKi94THzpm8-QWu8wQ2ec4ekGMub
+14||26|秋冬|レディース|軽量ダウンジャケット|ホワイト|ダウンジャケット|S-XXL|表地： / ポリエステル 100% / 裏地： / ポリエステル 100% / 中わた： / ダックダウン 90|洗濯機洗い可 / （おしゃれ着コース）|COATS社製糸、UNIMODAボタン|5424|https://drive.google.com/thumbnail?id=1vdn1v-gKN8Tlzhj-D9Lwduz5YZXAO_K6
+15||26|秋冬|レディース|ウエストシェイプダウンジャケット|ブラック|ダウンジャケット|S-XXL|表地：ポリエステル 100% / 別布：ナイロン 94.7% / ポリウレタン 5.3% / 裏地：ポリエステル 94.6% / ポリウレタン 5.4% / 中わた：ダックダウン 90|洗濯機洗い可 / （おしゃれ着コース）|COATS社製糸、 / UNIMODAボタン|2794|https://drive.google.com/thumbnail?id=1C29oStVmchHbAegbdtaOvjaMl7R-QzDe
+16||26|秋冬|メンズ|ダウンジャケット|ブラック|ダウンジャケット|S-XXL|表地： / ポリエステル 100% / 別布（表側）： / ポリエステル 90% / ポリウレタン 10% / （裏側）： / ポリエステル 94% / ポリウレタン 6%  / 中わた：ダックダウン 90|洗濯機洗い可 / （おしゃれ着コース）|COATS社製糸、 / UNIMODAボタン|3353|https://drive.google.com/thumbnail?id=10IwLfSEfm4fR0sh9xJ8FMEl6OW3w8rHE
+17||26|秋|メンズ|ジップパーカー|ブラック|スウェット|S-XXL|コットン 32% / ポリエステル 68%||COATS社製糸、 / UNIMODAボタン|1644|
+18||26|秋|メンズ|プルオーバーパーカー|ブラック|スウェット|S-XXL|コットン 32% / ポリエステル 68%||COATS社製糸|1611|
+19||26|秋|メンズ|ワイドパンツ|ブラック|スウェットパンツ|S-XXL|コットン 32% / ポリエステル 68%||COATS社製糸|1348|
+20||26|秋|メンズ|短パンツ|ブラック|スウェットパンツ|S-XXL|コットン 32% / ポリエステル 68%||COATS社製糸|1052|
+21|NX251WK001|26|秋|メンズ|ストレートパンツ|ミディアムグレー|スウェットパンツ|M-XL|ポリエステル 100%|通気性|COATS社製糸|1036|
+22|NX251WK002|26|秋|メンズ|ジョガーパンツ|ライトグレー|スウェットパンツ|M-XXL|ポリエステル 100%|通気性|COATS社製糸|1019|
+23|NX252WK001|26|秋|レディース|ストレートパンツ|0|スウェットパンツ|M-XL|ポリエステル 100%|通気性|COATS社製糸|980|
+24|NX252WK002|26|秋|レディース|ジョガーパンツ|ミディアムグレー|スウェットパンツ|M-XL|ポリエステル 100%|通気性|COATS社製糸|980|
+25||26|秋|レディース|カジュアルパーカ|ライトグレー|スウェット|S-XXL|ポリエステル 100%|通気性|COATS社製糸|1118|
+26||26|秋冬|メンズ|裏起毛ベーシックスウェットパンツ|ブラック|スウェットパンツ|S-3XL|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|1216|
+27||26|秋冬|メンズ|裏起毛ワイドパンツ|ブラック|スウェットパンツ|S-3XL|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|1414|
+28||26|秋冬|メンズ|裏起毛ジョガーパンツ|ブラック|スウェットパンツ|S-3XL|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|1479|
+29||26|秋冬|メンズ|裏起毛ジャケット|ブラック|スウェット|S-XXL|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|1447|
+30||26|秋冬|メンズ/キッズ|キッズ裏起毛ジャケット|ブラック|スウェット|110-150|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|1085|
+31||26|秋冬|メンズ/キッズ|キッズ裏起毛スタジャン|ブラック|スウェット|110-150|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|1019|
+32||26|秋冬|メンズ/キッズ|キッズ裏起毛ジョガーパンツ|ブラック|スウェットパンツ|110-150|表地： / ポリエステル 90% / ポリウレタン 10% / 裏地： / ポリエステル 94% / ポリウレタン 6%|厚みあり、 / 柔らかい、 / 保温|COATS社製糸|921|
+33|NP30124F001|26|秋冬|メンズ|発熱保温インナー|ブラック|保温|M-3XL|アクリル繊維 33.3% / ポリエステル 32.8% / レーヨン 22.2% / ポリウレタン 11.7%|吸湿、発熱|COATS社製糸|1121|
+34|NP30224F001|26|秋冬|レディース|発熱保温インナー|ライトベージュグレー|保温|S-XXL|アクリル繊維 33.3% / ポリエステル 32.8% / レーヨン 22.2% / ポリウレタン 11.7%|吸湿、発熱|COATS社製糸|894|
+35|NA10624F001|26|秋冬|レディース|ハイウエストレギンス|ブラック|保温|S-XXL|表地： / ナイロン 77.8% / ポリウレタン 22.2% / 裏地： / ポリエステル 88.8% / ポリウレタン 11.2%|フリーカット、 / 高伸縮性、 / 抗ピリング性、 / 吸湿、 / 通気性、 / 静電気防止、 / 変形しにくい|COATS社製糸|1045|
+36|NA10624F002|26|秋冬|レディース|フレアレギンス|ブラック|保温|S-XXL|表地： / ナイロン 77.8% / ポリウレタン 22.2% / 裏地： / ポリエステル 88.8% / ポリウレタン 11.2%|下腹補正、 / ヒップアップ、 / シームレス|COATS社製糸|1266|
+37||26|秋冬|メンズ|保温セット|ブラック|保温|S-XL|アクリル繊維 33.3% / ポリエステル 32.8% / レーヨン 22.2% / ポリウレタン 11.7%|吸湿、 / 発熱、 / ゆったり|COATS社製糸|2564|
+38|N251TX004|26|夏|メンズ|速乾Tシャツ|ホワイト|速乾|M-3XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|307|https://drive.google.com/thumbnail?id=11Xx21uGwNoW0vyopzgppLYzpzWdmoc7n
+39|N252TX003|26|夏|レディース|速乾Tシャツ|ブラック|速乾|S-2XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|263|https://drive.google.com/thumbnail?id=1gpXUGyyrIMB7s9WWNQkmMm3mpSMDvoeO
+40|NX251TX005|26|夏|メンズ|オーバーサイズ速乾Tシャツ|ブラック|速乾|M-L|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|454|https://drive.google.com/thumbnail?id=1hGGzuBxxzFi2_krbKI8FkcTMbXjDixs7
+41|NX251TX006|26|夏|メンズ|長袖Tシャツ|ホワイト|速乾|M-XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|503|https://drive.google.com/thumbnail?id=1OOUsUhZqOfRqgeZUfEbE4qWXsZ3Klyjm
+42|NX251BX001|26|夏|メンズ|タンクトップ|ブラック|速乾|M-XL|ポリエステル 100%|吸湿速乾、 / uvカット|COATS社製糸|339|https://drive.google.com/thumbnail?id=13DADptSi-Jj8aUPuCx6nBwHihn82E2rE
+43|NX251CK002|26|夏|メンズ|軽量パンツ|ブラック|速乾|M-XXL|ポリエステル 89.1% / ポリウレタン 10.9%|速乾、通気性|COATS社製糸、|827|https://drive.google.com/thumbnail?id=1oLJhyPPtfJluZ6yqRfdqN2_DqyMUIJqn
+44|NX251DK002|26|夏|メンズ|軽量短パンツ|ブラック|速乾|M-XXL|ポリエステル 89.1% / ポリウレタン 10.9%|速乾、通気性|COATS社製糸|674|https://drive.google.com/thumbnail?id=1zmYmsHQ8K7XZm0eSrKd0GbcbDk_sRgXk
+45|NX251CK003|26|夏|メンズ|カジュアルパンツ|ブラック|速乾|M-XXL|ポリエステル 79% / ポリウレタン 21%|冷感、通気性|COATS社製糸|879|https://drive.google.com/thumbnail?id=1tdVAgtQ7J7xuPdCkviqEF5jFLbhusKxO
+46|NA10124B002|26|春夏|レディース|UVカットスケープ型パーカー|ロックパープル|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1450|https://drive.google.com/thumbnail?id=1y70Bb08dJx0V5CKHVsrDTyG2zj83Z8Zy
+47|NA10124B003|26|春夏|レディース|ベーシックUVカットパーカー|アプリコットベージュ|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1677|https://drive.google.com/thumbnail?id=1NeX1s0sPGYFUXS8GOFvOuVKyDv7UnBeq
+48|NA10124B004|26|春夏|レディース|UVカットスリムフィットパーカー|アーモンドベージュ|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1322|https://drive.google.com/thumbnail?id=1Q52uNbcQ_pkHqrFSRsfsyCuWFV0eiSkp
+49|NA10124B005|26|春夏|レディース|UVカットスピンドルパーカー|ブラック|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1404|https://drive.google.com/thumbnail?id=1Cd8o4mq4PcxEz8ImmnJ-DqMbzVNtVupZ
+50|NA10124B006|26|春夏|レディース|UVカットシャツ型パーカー|クールグレー|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸|1502|https://drive.google.com/thumbnail?id=1CeJOeonegtz1pPCkue1rm53S-jml14HG
+51|NA10224B001|26|春夏|レディース|UVカットワイドパンツ|ロックパープル|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸|1246|https://drive.google.com/thumbnail?id=1AxnXpFlUt-u44ziEHQHcsXPDFITA_re2
+52|NA10224B002|26|春夏|レディース|UVカットジョガーパンツ|モカグレー|uvカット|S-XL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸|1292|https://drive.google.com/thumbnail?id=15XNX2wWKOPrg2ctGRTiVK4UTQrNuGKWS
+53|NA20124B001|26|春夏|メンズ|UVカットフード付きパーカー|ストーングレー|uvカット|M-XXL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1746|https://drive.google.com/thumbnail?id=1uWLTLxCvfl5mz9EaGI1L4U0FlmJFbuIV
+54|NA20124B002|26|春夏|メンズ|UVカットスタンドカラーパーカー|クールグレー|uvカット|M-XXL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1683|https://drive.google.com/thumbnail?id=1n3i_gPS-dJwRir1KyXkVxy4WRg5UTEXX
+55|NA20124B003|26|春夏|メンズ|UVカット襟付きパーカー|ネイビー|uvカット|M-XXL|ナイロン 88% / ポリウレタン 12%|接触冷感、 / uvカット|COATS社製糸、 / UNIMODAボタン|1759|https://drive.google.com/thumbnail?id=1S3vQ20eRBwVIuUmMMpkgKeDSdKe2ZE70
+56|NA20724E001|26|春夏|メンズ|ベーシックポロシャツ|ヘーゼルナッツブラウン|uvカット|M-XXL|ナイロン 91% / ポリウレタン 9%|接触冷感、 / uvカット|COATS社製糸、 / SHIMADAボタン|1124|https://drive.google.com/thumbnail?id=1BdctQMJzr-5vvRRC2sjtiRBV4DuT0sn_
+57|NA10724E001|26|春夏|レディース|ベーシックポロシャツ|グレシャーブルー|uvカット|S-XL|ナイロン 91% / ポリウレタン 9%|接触冷感、 / uvカット|COATS社製糸、 / SHIMADAボタン|1036|https://drive.google.com/thumbnail?id=1IPaKnUH3wKdHoxI3RRm2TQG4J3s9l_xc
+58|NX252YJ001|26|春夏|レディース|フレアヨガパンツ|ブルー|保温|S-XL|ナイロン 80% / ポリウレタン 20%|肌感覚|COATS社製糸|1052|https://drive.google.com/thumbnail?id=1BPqOtfBTiiJtYOc2F4RkKMGL8nIMlHRh
+59|NX252YJ002|26|春夏|レディース|ハイウエストヨガパンツ|ブルー|保温|S-XL|ナイロン 80% / ポリウレタン 20%|肌感覚|COATS社製糸|986|https://drive.google.com/thumbnail?id=1s9soN09oyYC2NxvPW0WZyhWyACVQLmia
+60||26|オールシーズン|メンズ|アイスシル / ボクサーパンツ||インナー|M-XXL|生地:  / ナイロン 84% / ポリウレタン 16% / 股下裏:  / レーヨン 68.5% / ポリウレタン 4.1% / ポリエステル27.4%|接触冷感、軽量、通気性、速乾|COATS社製糸|192|https://drive.google.com/thumbnail?id=1dKL6Zo9D-XEdE1Olf24SCEa0WdzkXD6a
+61||26|オールシーズン|メンズ|コットン×ライクラ / ボクサーパンツ||インナー|M-3XL|コットン 95% / ポリウレタン 5%|新疆綿×ライクラ、吸湿、通気性、肌感覚|COATS社製糸|204|https://drive.google.com/thumbnail?id=1IwZX7860s3htx9C3lOP2q8PpuDqcWh_X
+62||26|オールシーズン|レディース|コットン×ライクラ  / シームレスショーツ||インナー|S-XXL|コットン 95% / ポリウレタン 5%|新疆綿×ライクラ、吸湿、通気性、肌感覚|COATS社製糸|134|https://drive.google.com/thumbnail?id=1_etTOu8CYySeQsngoDZJ533UqkCt85m3
+63||26|オールシーズン|メンズ|抗菌ミドル丈 / コットン靴下||靴下|F|コットン 94.1% / ポリウレタン 3.1%  / ナイロン 2.8%|フィット感、 / ずれにくい||86|https://drive.google.com/thumbnail?id=1HQ7WafUWerTIgNz9K9BMlYcjT1GLNS1_
+64||26|オールシーズン|レディース|抗菌ミドル丈 / コットン靴下||靴下|F|コットン 94.1% / ポリウレタン 3.1%  / ナイロン 2.8%|フィット感、 / ずれにくい||83|https://drive.google.com/thumbnail?id=1nyIe-jLniAUv8acnzaN9QRcqKjhsurwO
+65||26|冬|メンズ|3WAYマウンテンパーカー|ブラック|マウンテンパーカー|S-3XL|ポリエステル 100%|防水仕様、 / 3WAY着用|COATS社製糸、 / UNIMODAボタン|2564|https://drive.google.com/thumbnail?id=1RRuEN-GoGhYLnMJgRIIHIPLXVtBs-qVv
+66||26|春夏|メンズ|コットンTシャツ|ブラック|綿100|M-2XL|コットン100%|||1200|

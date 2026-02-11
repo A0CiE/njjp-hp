@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useI18n } from '../src/i18n/provider';
 import { loadListingProducts, type RuntimeListingProduct } from '../src/data/listingProductsRuntime';
+import { withImageSize } from '../src/data/imageUrl';
 import MarketAnnouncementBar from '../src/components/sections/market/MarketAnnouncementBar';
 import MarketTopNav from '../src/components/sections/market/MarketTopNav';
 import ListingHeroControls, {
@@ -36,7 +37,7 @@ const LANG_OPTIONS: { code: AppLang; shortLabel: string; label: string }[] = [
 
 type ApparelCard = {
     id: number;
-    code: string;
+    code: string | null;
     name: string;
     category: string;
     season: string;
@@ -46,7 +47,20 @@ type ApparelCard = {
     imageUri: string;
 };
 
-const compareCodes = (a: string, b: string) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+const compareCodes = (a: string | null, b: string | null): number => {
+    const left = (a ?? '').trim();
+    const right = (b ?? '').trim();
+    if (!left && !right) {
+        return 0;
+    }
+    if (!left) {
+        return 1;
+    }
+    if (!right) {
+        return -1;
+    }
+    return left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' });
+};
 const compareById = (a: ApparelCard, b: ApparelCard): number => a.id - b.id;
 
 const seasonRank = (season: string): number => {
@@ -63,18 +77,6 @@ const seasonRank = (season: string): number => {
         }
     }
     return 0;
-};
-
-const resolveReleaseYear = (item: RuntimeListingProduct): number => {
-    const text = `${item.productName} ${item.season}`;
-    const matched = text.match(/\b(20\d{2})\b/);
-    if (matched) {
-        const parsed = Number.parseInt(matched[1], 10);
-        if (Number.isFinite(parsed)) {
-            return parsed;
-        }
-    }
-    return 2025;
 };
 
 const compareByYearSeasonCode = (a: ApparelCard, b: ApparelCard): number => {
@@ -162,8 +164,9 @@ export default function ListingPage() {
                 cardReveal[index].setValue(0);
             }
 
-            if (!hoverScale[item.code]) {
-                hoverScale[item.code] = new Animated.Value(1);
+            const itemKey = String(item.id);
+            if (!hoverScale[itemKey]) {
+                hoverScale[itemKey] = new Animated.Value(1);
             }
         });
 
@@ -219,9 +222,9 @@ export default function ListingPage() {
                 category: item.genre,
                 season: item.season,
                 gender: item.gender,
-                releaseYear: resolveReleaseYear(item),
+                releaseYear: item.releaseYear,
                 price: item.finalPriceYen,
-                imageUri: (item.imageUrl || '').trim(),
+                imageUri: withImageSize(item.imageUrl, 400),
             })),
         [rawProducts],
     );
@@ -233,7 +236,7 @@ export default function ListingPage() {
                 !q ||
                 item.name.toLowerCase().includes(q) ||
                 item.category.toLowerCase().includes(q) ||
-                item.code.toLowerCase().includes(q);
+                (item.code ?? '').toLowerCase().includes(q);
             const seasonMatched = seasonFilter === ALL_FILTER_VALUE || item.season === seasonFilter;
             const genderMatched = genderFilter === ALL_FILTER_VALUE || item.gender === genderFilter;
             return queryMatched && seasonMatched && genderMatched;
@@ -292,7 +295,7 @@ export default function ListingPage() {
 
     const cardAnimById = useMemo(() => {
         return rawProducts.reduce((acc, item, index) => {
-            acc[item.code] = cardReveal[index];
+            acc[String(item.id)] = cardReveal[index];
             return acc;
         }, {} as Record<string, Animated.Value | undefined>);
     }, [cardReveal, rawProducts]);
@@ -306,7 +309,7 @@ export default function ListingPage() {
     const sortHeading = t('listing_page.sort_heading', { count: filtered.length });
 
     const isMobile = width <= 800;
-    const isTablet = width <= 1150;
+    const isTablet = width <= 980;
     const containerPadding = width > 1320 ? 66 : width > 980 ? 40 : 18;
     const gridGap = 28;
     const columns = isMobile ? 1 : isTablet ? 2 : 3;
@@ -320,8 +323,8 @@ export default function ListingPage() {
     const cardNameSize = isMobile ? 34 : isTablet ? 38 : 43;
     const cardPriceSize = isMobile ? 31 : isTablet ? 34 : 38;
 
-    const animateHover = (code: string, active: boolean) => {
-        const value = hoverScale[code];
+    const animateHover = (id: number, active: boolean) => {
+        const value = hoverScale[String(id)];
         if (!value) {
             return;
         }
@@ -432,6 +435,7 @@ export default function ListingPage() {
                         loadingText={t('listing_page.loading')}
                         emptyText={t('listing_page.empty')}
                         viewDetailsText={t('listing_page.view_details')}
+                        imagePlaceholderText={t('listing_page.image_preparing')}
                         items={filtered}
                         cardWidth={cardWidth}
                         imageHeight={imageHeight}
@@ -440,7 +444,7 @@ export default function ListingPage() {
                         cardAnimById={cardAnimById}
                         hoverScaleById={hoverScale}
                         onHoverChange={animateHover}
-                        onOpenDetail={(code) => router.push({ pathname: '/p/[code]', params: { code } })}
+                        onOpenDetail={(id) => router.push({ pathname: '/p/[code]', params: { code: String(id) } })}
                         gridGap={gridGap}
                     />
                 </View>

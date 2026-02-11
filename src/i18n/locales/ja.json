@@ -157,6 +157,7 @@
     "view_details": "詳細を見る",
     "loading": "アパレルを読み込み中...",
     "empty": "商品が見つかりません。",
+    "image_preparing": "画像準備中",
     "all_option": "すべて",
     "season_filter": "シーズン",
     "gender_filter": "性別",
@@ -175,6 +176,8 @@
     "browse": "アパレル一覧",
     "details_title": "商品仕様",
     "product_code": "商品コード",
+    "image_preparing": "画像準備中",
+    "release_year": "発売年",
     "season": "シーズン",
     "gender": "性別",
     "product_name": "商品名",
@@ -192,6 +195,7 @@
   },
   "browse_wall": {
     "title": "アパレルを探す",
-    "cta": "一覧ページを開く"
+    "cta": "一覧ページを開く",
+    "image_preparing": "画像準備中"
   }
 }

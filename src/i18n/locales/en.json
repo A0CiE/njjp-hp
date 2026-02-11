@@ -157,6 +157,7 @@
     "view_details": "View details",
     "loading": "Loading apparels...",
     "empty": "No products found.",
+    "image_preparing": "Preparing image",
     "all_option": "All",
     "season_filter": "Season",
     "gender_filter": "Gender",
@@ -175,6 +176,8 @@
     "browse": "Browse Apparels",
     "details_title": "Product Specifications",
     "product_code": "Product code",
+    "image_preparing": "Preparing image",
+    "release_year": "Release Year",
     "season": "Season",
     "gender": "Gender",
     "product_name": "Product Name",
@@ -192,6 +195,7 @@
   },
   "browse_wall": {
     "title": "Browse Apparels",
-    "cta": "Open Full Listing"
+    "cta": "Open Full Listing",
+    "image_preparing": "Preparing image"
   }
 }

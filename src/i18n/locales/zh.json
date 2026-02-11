@@ -157,6 +157,7 @@
     "view_details": "查看详情",
     "loading": "正在加载服装...",
     "empty": "未找到商品。",
+    "image_preparing": "图片准备中",
     "all_option": "全部",
     "season_filter": "季节",
     "gender_filter": "性别",
@@ -175,6 +176,8 @@
     "browse": "服装列表",
     "details_title": "产品规格",
     "product_code": "产品编码",
+    "image_preparing": "图片准备中",
+    "release_year": "发布年份",
     "season": "季节",
     "gender": "性别",
     "product_name": "产品名",
@@ -192,6 +195,7 @@
   },
   "browse_wall": {
     "title": "浏览服装",
-    "cta": "打开完整列表"
+    "cta": "打开完整列表",
+    "image_preparing": "图片准备中"
   }
 }
