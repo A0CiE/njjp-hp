@@ -45,39 +45,41 @@ export default function ListingProductGrid({
 }: Props) {
     return (
         <View style={[styles.grid, { gap: gridGap }]}>
-            {isLoading ? (
-                <View style={styles.stateWrap}>
-                    <Text style={styles.stateText}>{loadingText}</Text>
-                </View>
-            ) : items.length === 0 ? (
-                <View style={styles.stateWrap}>
-                    <Text style={styles.stateText}>{emptyText}</Text>
-                </View>
-            ) : (
-                items.map((item) => {
-                    const itemKey = String(item.id);
+            <View style={[styles.gridFullWidth, { gap: gridGap }]}>
+                {isLoading ? (
+                    <View style={styles.stateWrap}>
+                        <Text style={styles.stateText}>{loadingText}</Text>
+                    </View>
+                ) : items.length === 0 ? (
+                    <View style={styles.stateWrap}>
+                        <Text style={styles.stateText}>{emptyText}</Text>
+                    </View>
+                ) : (
+                    items.map((item) => {
+                        const itemKey = String(item.id);
 
-                    return (
-                        <ListingProductCard
-                            key={itemKey}
-                            item={item}
-                            cardWidth={cardWidth}
-                            imageHeight={imageHeight}
-                            cardNameSize={cardNameSize}
-                            cardNameLineHeight={cardNameLineHeight}
-                            cardPriceSize={cardPriceSize}
-                            cardPriceLineHeight={cardPriceLineHeight}
-                            viewDetailsText={viewDetailsText}
-                            imagePlaceholderText={imagePlaceholderText}
-                            reveal={cardAnimById[itemKey]}
-                            scale={hoverScaleById[itemKey]}
-                            ctaHover={ctaHoverById[itemKey]}
-                            onHoverChange={onHoverChange}
-                            onOpenDetail={onOpenDetail}
-                        />
-                    );
-                })
-            )}
+                        return (
+                            <ListingProductCard
+                                key={itemKey}
+                                item={item}
+                                cardWidth={cardWidth}
+                                imageHeight={imageHeight}
+                                cardNameSize={cardNameSize}
+                                cardNameLineHeight={cardNameLineHeight}
+                                cardPriceSize={cardPriceSize}
+                                cardPriceLineHeight={cardPriceLineHeight}
+                                viewDetailsText={viewDetailsText}
+                                imagePlaceholderText={imagePlaceholderText}
+                                reveal={cardAnimById[itemKey]}
+                                scale={hoverScaleById[itemKey]}
+                                ctaHover={ctaHoverById[itemKey]}
+                                onHoverChange={onHoverChange}
+                                onOpenDetail={onOpenDetail}
+                            />
+                        );
+                    })
+                )}
+            </View>
         </View>
     );
 }
@@ -86,6 +88,12 @@ const styles = StyleSheet.create({
     grid: {
         position: 'relative',
         zIndex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    gridFullWidth: {
+        width: '100%',
+        maxWidth: '100%',
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
