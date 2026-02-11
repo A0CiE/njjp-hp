@@ -13,6 +13,7 @@ type Props = {
     heroTop: string;
     heroBottom: string;
     heroFontSize: number;
+    heroTextMaxWidth: number;
     heroStyle: any;
     sortStyle: any;
     sortHeading: string;
@@ -50,6 +51,7 @@ export default function ListingHeroControls({
     heroTop,
     heroBottom,
     heroFontSize,
+    heroTextMaxWidth,
     heroStyle,
     sortStyle,
     sortHeading,
@@ -85,20 +87,22 @@ export default function ListingHeroControls({
 
     return (
         <View style={[styles.heroRow, isMobile && styles.heroRowStack]}>
-            <Animated.Text
-                style={[
-                    styles.heroTitle,
-                    heroStyle,
-                    {
-                        fontSize: heroFontSize,
-                        lineHeight: Math.round(heroFontSize * 0.96),
-                    },
-                ]}
-            >
-                {heroTop}
-                {'\n'}
-                {heroBottom}
-            </Animated.Text>
+            <View style={[styles.heroTitleWrap, { width: isMobile ? '100%' : heroTextMaxWidth, maxWidth: heroTextMaxWidth }]}>
+                <Animated.Text
+                    style={[
+                        styles.heroTitle,
+                        heroStyle,
+                        {
+                            fontSize: heroFontSize,
+                            lineHeight: Math.round(heroFontSize * 0.96),
+                        },
+                    ]}
+                >
+                    {heroTop}
+                    {'\n'}
+                    {heroBottom}
+                </Animated.Text>
+            </View>
 
             <Animated.View
                 style={[
@@ -266,7 +270,14 @@ const styles = StyleSheet.create({
         color: CHARCOAL,
         fontFamily: 'serif',
         letterSpacing: -1.2,
-        maxWidth: 600,
+        width: '100%',
+        maxWidth: '100%',
+    },
+    heroTitleWrap: {
+        minWidth: 0,
+        flexGrow: 1,
+        flexShrink: 1,
+        justifyContent: 'flex-end',
     },
     sortBlock: {
         maxWidth: '100%',

@@ -319,9 +319,14 @@ export default function ListingPage() {
     const maxColumns = isMobile ? 2 : 4;
     const fitColumns = Math.max(1, Math.floor((contentWidth + gridGap) / (minSquareCardWidth + gridGap)));
     const columns = Math.max(1, Math.min(maxColumns, fitColumns));
-    const controlPanelWidth = isMobile ? contentWidth : Math.min(840, Math.max(520, contentWidth * 0.62));
+    const desktopHeroMinWidth = width > 1480 ? 520 : 460;
+    const desktopControlMaxByRoom = Math.max(420, contentWidth - desktopHeroMinWidth - 20);
+    const controlPanelWidth = isMobile
+        ? contentWidth
+        : Math.max(420, Math.min(840, Math.min(contentWidth * 0.58, desktopControlMaxByRoom)));
+    const heroTextMaxWidth = isMobile ? contentWidth : Math.max(320, contentWidth - controlPanelWidth - 20);
     const cardWidth = Math.max(180, (contentWidth - gridGap * (columns - 1)) / columns);
-    const heroFontSize = Math.max(52, Math.min(78, width * 0.055));
+    const heroFontSize = Math.max(50, Math.min(74, width * 0.053));
     const brandWordmarkSize = isMobile ? 22 : 34;
     const imageHeight = cardWidth;
     const sortLabelSize = isMobile ? 16 : 25;
@@ -412,6 +417,7 @@ export default function ListingPage() {
                         heroTop={t('listing_page.hero_top')}
                         heroBottom={t('listing_page.hero_bottom')}
                         heroFontSize={heroFontSize}
+                        heroTextMaxWidth={heroTextMaxWidth}
                         heroStyle={heroStyle}
                         sortStyle={sortStyle}
                         sortHeading={sortHeading}
