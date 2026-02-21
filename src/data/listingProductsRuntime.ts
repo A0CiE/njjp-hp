@@ -7,6 +7,7 @@ export type RuntimeListingProduct = {
     releaseYear: number;
     season: string;
     gender: string;
+    categoryKey: ProductCategoryKey;
     productName: string;
     colorRange: string;
     genre: string;
@@ -18,7 +19,31 @@ export type RuntimeListingProduct = {
     imageUrl: string | null;
 };
 
-const EXPECTED_COLS = 14;
+export type ProductCategoryKey =
+    | 'tops'
+    | 'bottoms'
+    | 'outerwear'
+    | 'dresses'
+    | 'skirts'
+    | 'knitwear'
+    | 'sets'
+    | 'accessories'
+    | 'other';
+
+export const PRODUCT_CATEGORY_KEYS: ProductCategoryKey[] = [
+    'tops',
+    'bottoms',
+    'outerwear',
+    'dresses',
+    'skirts',
+    'knitwear',
+    'sets',
+    'accessories',
+    'other',
+];
+
+const VALID_CATEGORY_KEYS = new Set<ProductCategoryKey>(PRODUCT_CATEGORY_KEYS);
+const EXPECTED_COLS = 15;
 const PRODUCTS_TEXT_ASSET = require('./products.txt');
 
 let cache: RuntimeListingProduct[] | null = null;
@@ -53,6 +78,64 @@ const parseReleaseYear = (raw: string): number => {
     return 26;
 };
 
+const deriveCategoryKey = (productName: string, genre: string): ProductCategoryKey => {
+    const name = productName.trim();
+    const nameLower = name.toLowerCase();
+    const genreValue = genre.trim().toLowerCase();
+
+    if (name.includes('セット')) {
+        return 'sets';
+    }
+    if (name.includes('靴下') || genreValue === '靴下') {
+        return 'accessories';
+    }
+    if (name.includes('ボクサーパンツ') || name.includes('ショーツ') || genreValue === 'インナー') {
+        return 'accessories';
+    }
+    if (
+        name.includes('パンツ') ||
+        name.includes('レギンス') ||
+        name.includes('短パン') ||
+        genreValue === 'スウェットパンツ'
+    ) {
+        return 'bottoms';
+    }
+    if (
+        name.includes('コート') ||
+        name.includes('ジャケット') ||
+        name.includes('マウンテン') ||
+        name.includes('ベスト') ||
+        genreValue === 'コート' ||
+        genreValue === 'ダウンジャケット' ||
+        genreValue === 'マウンテンパーカー'
+    ) {
+        return 'outerwear';
+    }
+    if (
+        nameLower.includes('tシャツ') ||
+        name.includes('ポロシャツ') ||
+        name.includes('タンクトップ') ||
+        name.includes('インナー') ||
+        name.includes('パーカー') ||
+        genreValue === 'uvカット' ||
+        genreValue === '綿100' ||
+        genreValue === '速乾' ||
+        genreValue === 'スウェット' ||
+        genreValue === '保温'
+    ) {
+        return 'tops';
+    }
+    return 'other';
+};
+
+const parseCategoryKey = (raw: string, productName: string, genre: string): ProductCategoryKey => {
+    const normalized = raw.trim().toLowerCase() as ProductCategoryKey;
+    if (VALID_CATEGORY_KEYS.has(normalized)) {
+        return normalized;
+    }
+    return deriveCategoryKey(productName, genre);
+};
+
 const parseLine = (line: string, fallbackId: number): RuntimeListingProduct | null => {
     const cols = line.split('|').map(normalizeCell);
     if (cols.length === 13) {
@@ -67,7 +150,7 @@ const parseLine = (line: string, fallbackId: number): RuntimeListingProduct | nu
         }
     }
     if (cols.length === EXPECTED_COLS - 1) {
-        cols.push('');
+        cols.push(deriveCategoryKey(cols[5] ?? '', cols[7] ?? ''));
     }
     if (cols.length < EXPECTED_COLS) {
         return null;
@@ -88,6 +171,7 @@ const parseLine = (line: string, fallbackId: number): RuntimeListingProduct | nu
         trimSpec,
         finalPrice,
         imageUrl,
+        rawCategoryKey,
     ] = cols;
 
     return {
@@ -96,6 +180,7 @@ const parseLine = (line: string, fallbackId: number): RuntimeListingProduct | nu
         releaseYear: parseReleaseYear(rawReleaseYear),
         season,
         gender,
+        categoryKey: parseCategoryKey(rawCategoryKey ?? '', productName, genre),
         productName,
         colorRange,
         genre,

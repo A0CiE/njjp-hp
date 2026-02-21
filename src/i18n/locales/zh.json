@@ -168,7 +168,19 @@
       "product_number": "产品编号",
       "product_year": "产品年份"
     },
-    "default_order": "默认顺序"
+    "default_order": "默认顺序",
+    "category_filter": "分类",
+    "category_options": {
+      "tops": "上装",
+      "bottoms": "下装",
+      "outerwear": "外套",
+      "dresses": "连衣裙",
+      "skirts": "半身裙",
+      "knitwear": "针织",
+      "sets": "套装",
+      "accessories": "配饰",
+      "other": "其他"
+    }
   },
   "detail_page": {
     "announcement": "我们才刚刚开始。新增服装上架后会第一时间通知。",

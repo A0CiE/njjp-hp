@@ -1,7 +1,7 @@
 import React from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 
-export type ListingMenuKey = 'season' | 'gender' | 'sort' | null;
+export type ListingMenuKey = 'season' | 'gender' | 'category' | 'sort' | null;
 
 export type ListingDropdownOption = {
     value: string;
@@ -22,24 +22,29 @@ type Props = {
 
     seasonLabel: string;
     genderLabel: string;
+    categoryLabel: string;
     sortLabel: string;
 
     selectedSeasonLabel: string;
     selectedGenderLabel: string;
+    selectedCategoryLabel: string;
     selectedSortLabel: string;
 
     seasonOptions: ListingDropdownOption[];
     genderOptions: ListingDropdownOption[];
+    categoryOptions: ListingDropdownOption[];
     sortOptions: ListingDropdownOption[];
 
     selectedSeasonValue: string;
     selectedGenderValue: string;
+    selectedCategoryValue: string;
     selectedSortValue: string;
 
     openMenu: ListingMenuKey;
     onToggleMenu: (key: Exclude<ListingMenuKey, null>) => void;
     onSelectSeason: (value: string) => void;
     onSelectGender: (value: string) => void;
+    onSelectCategory: (value: string) => void;
     onSelectSort: (value: string) => void;
 };
 
@@ -59,20 +64,25 @@ export default function ListingHeroControls({
     controlPanelWidth,
     seasonLabel,
     genderLabel,
+    categoryLabel,
     sortLabel,
     selectedSeasonLabel,
     selectedGenderLabel,
+    selectedCategoryLabel,
     selectedSortLabel,
     seasonOptions,
     genderOptions,
+    categoryOptions,
     sortOptions,
     selectedSeasonValue,
     selectedGenderValue,
+    selectedCategoryValue,
     selectedSortValue,
     openMenu,
     onToggleMenu,
     onSelectSeason,
     onSelectGender,
+    onSelectCategory,
     onSelectSort,
 }: Props) {
     const colStyleFor = (key: Exclude<ListingMenuKey, null>) => [
@@ -199,6 +209,47 @@ export default function ListingHeroControls({
                         </View>
                     </View>
 
+                    <View style={colStyleFor('category')}>
+                        <Text style={styles.controlCaption}>{categoryLabel}</Text>
+                        <View style={wrapStyleFor('category')}>
+                            <Pressable
+                                onPress={() => onToggleMenu('category')}
+                                style={({ pressed, hovered }: any) => [
+                                    styles.sortTrigger,
+                                    hovered && styles.sortTriggerHovered,
+                                    pressed && styles.sortTriggerPressed,
+                                ]}
+                            >
+                                <Text numberOfLines={1} style={styles.sortTriggerText}>
+                                    {selectedCategoryLabel}
+                                </Text>
+                                <Text style={styles.sortCaret}>⌄</Text>
+                            </Pressable>
+
+                            {openMenu === 'category' && (
+                                <View style={styles.sortMenu}>
+                                    {categoryOptions.map((option) => {
+                                        const active = option.value === selectedCategoryValue;
+                                        return (
+                                            <Pressable
+                                                key={`category-${option.value}`}
+                                                onPress={() => onSelectCategory(option.value)}
+                                                style={({ pressed, hovered }: any) => [
+                                                    styles.sortItem,
+                                                    active && styles.sortItemActive,
+                                                    hovered && styles.sortItemHovered,
+                                                    pressed && styles.sortItemPressed,
+                                                ]}
+                                            >
+                                                <Text style={styles.sortItemText}>{option.label}</Text>
+                                            </Pressable>
+                                        );
+                                    })}
+                                </View>
+                            )}
+                        </View>
+                    </View>
+
                     <View style={colStyleFor('sort')}>
                         <Text style={styles.controlCaption}>{sortLabel}</Text>
                         <View style={wrapStyleFor('sort')}>
@@ -302,7 +353,7 @@ const styles = StyleSheet.create({
     },
     controlCol: {
         flex: 1,
-        minWidth: 150,
+        minWidth: 140,
         position: 'relative',
     },
     controlColInactive: {

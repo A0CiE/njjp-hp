@@ -353,7 +353,12 @@ const BrowseWall: React.FC = () => {
                                             tile={tile}
                                             size={tileSize}
                                             placeholderText={t('browse_wall.image_preparing')}
-                                            onPress={() => router.push(`/p/${tile.productId}`)}
+                                            onPress={() =>
+                                                router.push({
+                                                    pathname: '/p/[code]',
+                                                    params: { code: String(tile.productId), from: 'home' },
+                                                })
+                                            }
                                         />
                                     ))}
                                 </Animated.View>

@@ -8,13 +8,24 @@ import {
     View,
     useWindowDimensions,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { useI18n } from '../src/i18n/provider';
 import { LANGUAGE_OPTIONS, toAppLanguage, type AppLanguage } from '../src/i18n/languageOptions';
-import { loadListingProducts, type RuntimeListingProduct } from '../src/data/listingProductsRuntime';
+import {
+    loadListingProducts,
+    PRODUCT_CATEGORY_KEYS,
+    type ProductCategoryKey,
+    type RuntimeListingProduct,
+} from '../src/data/listingProductsRuntime';
 import { withImageSize } from '../src/data/imageUrl';
+import {
+    getListingViewState,
+    saveListingViewState,
+    type ListingCategoryFilter,
+    type ListingSortKey,
+} from '../src/state/listingViewState';
 import MarketAnnouncementBar from '../src/components/sections/market/MarketAnnouncementBar';
 import MarketTopNav from '../src/components/sections/market/MarketTopNav';
 import ListingHeroControls, {
@@ -24,7 +35,11 @@ import ListingHeroControls, {
 import ListingProductGrid from '../src/components/sections/listing/ListingProductGrid';
 import Footer from '../src/components/sections/Footer';
 
-type SortKey = 'default' | 'price' | 'productNumber' | 'productYear';
+type SortKey = ListingSortKey;
+type ListingPageParams = {
+    restoreState?: string | string[];
+    focusProductId?: string | string[];
+};
 
 const ALL_FILTER_VALUE = '__ALL__';
 const OFF_BEIGE = '#ECEADD';
@@ -34,7 +49,8 @@ type ApparelCard = {
     id: number;
     code: string | null;
     name: string;
-    category: string;
+    categoryKey: ProductCategoryKey;
+    genre: string;
     season: string;
     gender: string;
     releaseYear: number;
@@ -99,6 +115,7 @@ const getViewportWidthWithoutScrollbar = (fallbackWidth: number): number => {
 
 export default function ListingPage() {
     const router = useRouter();
+    const params = useLocalSearchParams<ListingPageParams>();
     const { currentLanguage, setLanguage } = useI18n();
     const { t } = useTranslation();
     const { width: windowWidth } = useWindowDimensions();
@@ -110,9 +127,11 @@ export default function ListingPage() {
     const [sortBy, setSortBy] = useState<SortKey>('default');
     const [seasonFilter, setSeasonFilter] = useState(ALL_FILTER_VALUE);
     const [genderFilter, setGenderFilter] = useState(ALL_FILTER_VALUE);
+    const [categoryFilter, setCategoryFilter] = useState<ListingCategoryFilter>(ALL_FILTER_VALUE);
     const [rawProducts, setRawProducts] = useState<RuntimeListingProduct[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hoverBindingsVersion, setHoverBindingsVersion] = useState(0);
+    const [gridTopY, setGridTopY] = useState<number | null>(null);
 
     const heroReveal = useRef(new Animated.Value(0)).current;
     const sortReveal = useRef(new Animated.Value(0)).current;
@@ -120,6 +139,13 @@ export default function ListingPage() {
     const hoverScale = useRef<Record<string, Animated.Value>>({}).current;
     const ctaHover = useRef<Record<string, Animated.Value>>({}).current;
     const scrollRef = useRef<ScrollView>(null);
+    const currentScrollYRef = useRef(0);
+    const pendingInitialScrollYRef = useRef<number | null>(null);
+    const pendingFocusProductIdRef = useRef<number | null>(null);
+    const initialRestoreAppliedRef = useRef(false);
+    const cardOffsetByIdRef = useRef<Record<number, number>>({});
+    const restoreStateParam = Array.isArray(params.restoreState) ? params.restoreState[0] : params.restoreState;
+    const focusProductIdParam = Array.isArray(params.focusProductId) ? params.focusProductId[0] : params.focusProductId;
 
     useEffect(() => {
         let cancelled = false;
@@ -143,6 +169,32 @@ export default function ListingPage() {
             cancelled = true;
         };
     }, []);
+
+    useEffect(() => {
+        initialRestoreAppliedRef.current = false;
+        pendingInitialScrollYRef.current = null;
+        pendingFocusProductIdRef.current = null;
+
+        if (restoreStateParam === '1') {
+            const snapshot = getListingViewState();
+            if (!snapshot) {
+                return;
+            }
+            setSearchOpen(snapshot.searchOpen);
+            setQuery(snapshot.query);
+            setSortBy(snapshot.sortBy);
+            setSeasonFilter(snapshot.seasonFilter);
+            setGenderFilter(snapshot.genderFilter);
+            setCategoryFilter(snapshot.categoryFilter);
+            pendingInitialScrollYRef.current = Math.max(0, snapshot.scrollY);
+            return;
+        }
+
+        const parsedFocusId = Number.parseInt((focusProductIdParam ?? '').trim(), 10);
+        if (Number.isFinite(parsedFocusId) && parsedFocusId > 0) {
+            pendingFocusProductIdRef.current = parsedFocusId;
+        }
+    }, [focusProductIdParam, restoreStateParam]);
 
     useEffect(() => {
         Animated.parallel([
@@ -229,7 +281,8 @@ export default function ListingPage() {
                 id: item.id,
                 code: item.code,
                 name: item.productName,
-                category: item.genre,
+                categoryKey: item.categoryKey,
+                genre: item.genre,
                 season: item.season,
                 gender: item.gender,
                 releaseYear: item.releaseYear,
@@ -245,11 +298,12 @@ export default function ListingPage() {
             const queryMatched =
                 !q ||
                 item.name.toLowerCase().includes(q) ||
-                item.category.toLowerCase().includes(q) ||
+                item.genre.toLowerCase().includes(q) ||
                 (item.code ?? '').toLowerCase().includes(q);
             const seasonMatched = seasonFilter === ALL_FILTER_VALUE || item.season === seasonFilter;
             const genderMatched = genderFilter === ALL_FILTER_VALUE || item.gender === genderFilter;
-            return queryMatched && seasonMatched && genderMatched;
+            const categoryMatched = categoryFilter === ALL_FILTER_VALUE || item.categoryKey === categoryFilter;
+            return queryMatched && seasonMatched && genderMatched && categoryMatched;
         });
 
         const sorted = [...rows];
@@ -274,7 +328,7 @@ export default function ListingPage() {
             return compareByYearSeasonCode(a, b);
         });
         return sorted;
-    }, [genderFilter, products, query, seasonFilter, sortBy]);
+    }, [categoryFilter, genderFilter, products, query, seasonFilter, sortBy]);
 
     const sortOptions = useMemo<ListingDropdownOption[]>(
         () => [
@@ -303,6 +357,16 @@ export default function ListingPage() {
         return [{ value: ALL_FILTER_VALUE, label: t('listing_page.all_option') }, ...values.map((value) => ({ value, label: value }))];
     }, [currentLanguage, rawProducts, t]);
 
+    const categoryOptions = useMemo<ListingDropdownOption[]>(() => {
+        return [
+            { value: ALL_FILTER_VALUE, label: t('listing_page.all_option') },
+            ...PRODUCT_CATEGORY_KEYS.map((value) => ({
+                value,
+                label: t(`listing_page.category_options.${value}`),
+            })),
+        ];
+    }, [currentLanguage, t]);
+
     const cardAnimById = useMemo(() => {
         return rawProducts.reduce((acc, item, index) => {
             acc[String(item.id)] = cardReveal[index];
@@ -316,6 +380,8 @@ export default function ListingPage() {
             : sortOptions.find((option) => option.value === sortBy)?.label ?? sortOptions[0].label;
     const selectedSeasonLabel = seasonOptions.find((option) => option.value === seasonFilter)?.label ?? t('listing_page.all_option');
     const selectedGenderLabel = genderOptions.find((option) => option.value === genderFilter)?.label ?? t('listing_page.all_option');
+    const selectedCategoryLabel =
+        categoryOptions.find((option) => option.value === categoryFilter)?.label ?? t('listing_page.all_option');
     const sortHeading = t('listing_page.sort_heading', { count: filtered.length });
 
     const layoutWidth = getViewportWidthWithoutScrollbar(windowWidth);
@@ -375,12 +441,87 @@ export default function ListingPage() {
         setOpenMenu((prev) => (prev === key ? null : key));
     };
 
+    const saveCurrentListingViewState = () => {
+        saveListingViewState({
+            searchOpen,
+            query,
+            seasonFilter,
+            genderFilter,
+            categoryFilter,
+            sortBy,
+            scrollY: currentScrollYRef.current,
+        });
+    };
+
+    const openDetailFromListing = (id: number) => {
+        saveCurrentListingViewState();
+        router.push({
+            pathname: '/p/[code]',
+            params: {
+                code: String(id),
+                from: 'listing',
+            },
+        });
+    };
+
+    useEffect(() => {
+        if (isLoading || initialRestoreAppliedRef.current || !scrollRef.current) {
+            return;
+        }
+
+        if (pendingInitialScrollYRef.current !== null) {
+            const targetY = Math.max(0, pendingInitialScrollYRef.current);
+            initialRestoreAppliedRef.current = true;
+            pendingInitialScrollYRef.current = null;
+            requestAnimationFrame(() => {
+                scrollRef.current?.scrollTo({ y: targetY, animated: false });
+                currentScrollYRef.current = targetY;
+            });
+            return;
+        }
+
+        const focusProductId = pendingFocusProductIdRef.current;
+        if (!focusProductId || gridTopY === null) {
+            return;
+        }
+
+        const measuredCardOffset = cardOffsetByIdRef.current[focusProductId];
+        let targetY: number | null = null;
+
+        if (Number.isFinite(measuredCardOffset)) {
+            targetY = Math.max(0, gridTopY + measuredCardOffset - 28);
+        } else {
+            const targetIndex = filtered.findIndex((item) => item.id === focusProductId);
+            if (targetIndex < 0) {
+                initialRestoreAppliedRef.current = true;
+                pendingFocusProductIdRef.current = null;
+                return;
+            }
+            const targetRow = Math.floor(targetIndex / columns);
+            const estimatedRowHeight = imageHeight + 154;
+            targetY = Math.max(0, gridTopY + targetRow * (estimatedRowHeight + gridGap) - 28);
+        }
+
+        if (targetY !== null) {
+            initialRestoreAppliedRef.current = true;
+            pendingFocusProductIdRef.current = null;
+            requestAnimationFrame(() => {
+                scrollRef.current?.scrollTo({ y: targetY as number, animated: false });
+                currentScrollYRef.current = targetY as number;
+            });
+        }
+    }, [columns, filtered, gridGap, gridTopY, imageHeight, isLoading]);
+
     return (
         <View style={styles.root}>
             <ScrollView
                 ref={scrollRef}
                 style={styles.root}
                 contentContainerStyle={{ paddingBottom: 24 }}
+                scrollEventThrottle={16}
+                onScroll={(event) => {
+                    currentScrollYRef.current = event.nativeEvent.contentOffset.y;
+                }}
                 onScrollBeginDrag={closeOpenMenu}
                 onMomentumScrollBegin={closeOpenMenu}
             >
@@ -434,15 +575,19 @@ export default function ListingPage() {
                         controlPanelWidth={controlPanelWidth}
                         seasonLabel={t('listing_page.season_filter')}
                         genderLabel={t('listing_page.gender_filter')}
+                        categoryLabel={t('listing_page.category_filter')}
                         sortLabel={t('listing_page.sort_filter')}
                         selectedSeasonLabel={selectedSeasonLabel}
                         selectedGenderLabel={selectedGenderLabel}
+                        selectedCategoryLabel={selectedCategoryLabel}
                         selectedSortLabel={selectedSortLabel}
                         seasonOptions={seasonOptions}
                         genderOptions={genderOptions}
+                        categoryOptions={categoryOptions}
                         sortOptions={sortOptions}
                         selectedSeasonValue={seasonFilter}
                         selectedGenderValue={genderFilter}
+                        selectedCategoryValue={categoryFilter}
                         selectedSortValue={sortBy}
                         openMenu={openMenu}
                         onToggleMenu={toggleMenu}
@@ -452,6 +597,10 @@ export default function ListingPage() {
                         }}
                         onSelectGender={(value) => {
                             setGenderFilter(value);
+                            setOpenMenu(null);
+                        }}
+                        onSelectCategory={(value) => {
+                            setCategoryFilter(value as ListingCategoryFilter);
                             setOpenMenu(null);
                         }}
                         onSelectSort={(value) => {
@@ -477,7 +626,13 @@ export default function ListingPage() {
                         hoverScaleById={hoverScale}
                         ctaHoverById={ctaHover}
                         onHoverChange={animateHover}
-                        onOpenDetail={(id) => router.push({ pathname: '/p/[code]', params: { code: String(id) } })}
+                        onOpenDetail={openDetailFromListing}
+                        onCardLayout={(id, y) => {
+                            cardOffsetByIdRef.current[id] = y;
+                        }}
+                        onGridLayout={(y) => {
+                            setGridTopY(y);
+                        }}
                         gridGap={gridGap}
                     />
                 </View>

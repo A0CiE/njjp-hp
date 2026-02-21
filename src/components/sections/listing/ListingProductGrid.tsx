@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
 import ListingProductCard, { type ListingGridItem } from './ListingProductCard';
 
 type Props = {
@@ -20,6 +20,8 @@ type Props = {
     ctaHoverById: Record<string, Animated.Value | undefined>;
     onHoverChange: (id: number, active: boolean) => void;
     onOpenDetail: (id: number) => void;
+    onCardLayout?: (id: number, y: number) => void;
+    onGridLayout?: (y: number) => void;
     gridGap: number;
 };
 
@@ -41,10 +43,16 @@ export default function ListingProductGrid({
     ctaHoverById,
     onHoverChange,
     onOpenDetail,
+    onCardLayout,
+    onGridLayout,
     gridGap,
 }: Props) {
+    const handleGridLayout = (event: LayoutChangeEvent) => {
+        onGridLayout?.(event.nativeEvent.layout.y);
+    };
+
     return (
-        <View style={[styles.grid, { gap: gridGap }]}>
+        <View onLayout={handleGridLayout} style={[styles.grid, { gap: gridGap }]}>
                 {isLoading ? (
                     <View style={styles.stateWrap}>
                         <Text style={styles.stateText}>{loadingText}</Text>
@@ -74,6 +82,7 @@ export default function ListingProductGrid({
                                 ctaHover={ctaHoverById[itemKey]}
                                 onHoverChange={onHoverChange}
                                 onOpenDetail={onOpenDetail}
+                                onCardLayout={onCardLayout}
                             />
                         );
                     })

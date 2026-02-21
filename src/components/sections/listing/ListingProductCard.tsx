@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Animated, LayoutChangeEvent, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 export type ListingGridItem = {
     id: number;
@@ -24,6 +24,7 @@ type Props = {
     ctaHover?: Animated.Value;
     onHoverChange: (id: number, active: boolean) => void;
     onOpenDetail: (id: number) => void;
+    onCardLayout?: (id: number, y: number) => void;
 };
 
 const CHARCOAL = '#333334';
@@ -45,7 +46,12 @@ export default function ListingProductCard({
     ctaHover,
     onHoverChange,
     onOpenDetail,
+    onCardLayout,
 }: Props) {
+    const handleLayout = (event: LayoutChangeEvent) => {
+        onCardLayout?.(item.id, event.nativeEvent.layout.y);
+    };
+
     const revealStyle = {
         opacity: reveal ?? 1,
         transform: reveal
@@ -83,7 +89,7 @@ export default function ListingProductCard({
     };
 
     return (
-        <Animated.View style={[styles.cardShell, { width: cardWidth }, revealStyle]}>
+        <Animated.View onLayout={handleLayout} style={[styles.cardShell, { width: cardWidth }, revealStyle]}>
             <Pressable {...bindHover} onPress={() => onOpenDetail(item.id)} style={styles.cardPress}>
                 <View style={[styles.imagePanel, { height: imageHeight }]}>
                     {item.imageUri ? (

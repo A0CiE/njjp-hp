@@ -168,7 +168,19 @@
       "product_number": "Product Number",
       "product_year": "Product Year"
     },
-    "default_order": "Default Order"
+    "default_order": "Default Order",
+    "category_filter": "Category",
+    "category_options": {
+      "tops": "Tops",
+      "bottoms": "Bottoms",
+      "outerwear": "Outerwear",
+      "dresses": "Dresses",
+      "skirts": "Skirts",
+      "knitwear": "Knitwear",
+      "sets": "Sets",
+      "accessories": "Accessories",
+      "other": "Other"
+    }
   },
   "detail_page": {
     "announcement": "We're just getting started. Get updates as new apparels are added.",
