@@ -114,7 +114,6 @@ export default function ProductDetailPage() {
                 <MarketAnnouncementBar
                     compact={isPhone}
                     announcement={t('detail_page.announcement')}
-                    notifyText={t('detail_page.notify')}
                     currentLang={lang}
                     langOpen={langOpen}
                     langOptions={LANGUAGE_OPTIONS.map((opt) => ({ code: opt.code, label: opt.label }))}

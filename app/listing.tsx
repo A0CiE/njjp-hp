@@ -118,7 +118,7 @@ export default function ListingPage() {
     const params = useLocalSearchParams<ListingPageParams>();
     const { currentLanguage, setLanguage } = useI18n();
     const { t } = useTranslation();
-    const { width: windowWidth } = useWindowDimensions();
+    const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
     const [searchOpen, setSearchOpen] = useState(false);
     const [query, setQuery] = useState('');
@@ -143,6 +143,9 @@ export default function ListingPage() {
     const pendingInitialScrollYRef = useRef<number | null>(null);
     const pendingFocusProductIdRef = useRef<number | null>(null);
     const initialRestoreAppliedRef = useRef(false);
+    const shouldUseReturnEntryAnimationRef = useRef(false);
+    const visibleAreaRevealPlayedRef = useRef(false);
+    const pendingVisibleRevealScrollYRef = useRef<number | null>(null);
     const cardOffsetByIdRef = useRef<Record<number, number>>({});
     const restoreStateParam = Array.isArray(params.restoreState) ? params.restoreState[0] : params.restoreState;
     const focusProductIdParam = Array.isArray(params.focusProductId) ? params.focusProductId[0] : params.focusProductId;
@@ -172,14 +175,18 @@ export default function ListingPage() {
 
     useEffect(() => {
         initialRestoreAppliedRef.current = false;
+        shouldUseReturnEntryAnimationRef.current = false;
+        visibleAreaRevealPlayedRef.current = false;
         pendingInitialScrollYRef.current = null;
         pendingFocusProductIdRef.current = null;
+        pendingVisibleRevealScrollYRef.current = null;
 
         if (restoreStateParam === '1') {
             const snapshot = getListingViewState();
             if (!snapshot) {
                 return;
             }
+            shouldUseReturnEntryAnimationRef.current = true;
             setSearchOpen(snapshot.searchOpen);
             setQuery(snapshot.query);
             setSortBy(snapshot.sortBy);
@@ -192,6 +199,7 @@ export default function ListingPage() {
 
         const parsedFocusId = Number.parseInt((focusProductIdParam ?? '').trim(), 10);
         if (Number.isFinite(parsedFocusId) && parsedFocusId > 0) {
+            shouldUseReturnEntryAnimationRef.current = true;
             pendingFocusProductIdRef.current = parsedFocusId;
         }
     }, [focusProductIdParam, restoreStateParam]);
@@ -213,11 +221,14 @@ export default function ListingPage() {
     }, [heroReveal, sortReveal]);
 
     useEffect(() => {
+        const skipGlobalStagger = shouldUseReturnEntryAnimationRef.current;
+        const initialRevealValue = skipGlobalStagger ? 1 : 0;
+
         rawProducts.forEach((item, index) => {
             if (!cardReveal[index]) {
-                cardReveal[index] = new Animated.Value(0);
+                cardReveal[index] = new Animated.Value(initialRevealValue);
             } else {
-                cardReveal[index].setValue(0);
+                cardReveal[index].setValue(initialRevealValue);
             }
 
             const itemKey = String(item.id);
@@ -235,18 +246,20 @@ export default function ListingPage() {
         // Force one re-bind render so freshly initialized refs are attached to card styles.
         setHoverBindingsVersion((v) => v + 1);
 
-        if (cardReveal.length > 0) {
-            Animated.stagger(
-                90,
-                cardReveal.map((value) =>
-                    Animated.timing(value, {
-                        toValue: 1,
-                        duration: 420,
-                        useNativeDriver: true,
-                    }),
-                ),
-            ).start();
+        if (skipGlobalStagger || cardReveal.length === 0) {
+            return;
         }
+
+        Animated.stagger(
+            90,
+            cardReveal.map((value) =>
+                Animated.timing(value, {
+                    toValue: 1,
+                    duration: 420,
+                    useNativeDriver: true,
+                }),
+            ),
+        ).start();
     }, [cardReveal, ctaHover, hoverScale, rawProducts]);
 
     const heroStyle = {
@@ -358,14 +371,15 @@ export default function ListingPage() {
     }, [currentLanguage, rawProducts, t]);
 
     const categoryOptions = useMemo<ListingDropdownOption[]>(() => {
+        const values = PRODUCT_CATEGORY_KEYS.filter((key) => rawProducts.some((item) => item.categoryKey === key));
         return [
             { value: ALL_FILTER_VALUE, label: t('listing_page.all_option') },
-            ...PRODUCT_CATEGORY_KEYS.map((value) => ({
+            ...values.map((value) => ({
                 value,
                 label: t(`listing_page.category_options.${value}`),
             })),
         ];
-    }, [currentLanguage, t]);
+    }, [currentLanguage, rawProducts, t]);
 
     const cardAnimById = useMemo(() => {
         return rawProducts.reduce((acc, item, index) => {
@@ -409,6 +423,74 @@ export default function ListingPage() {
     const cardNameLineHeight = isMobile ? 24 : isTablet ? 26 : 30;
     const cardPriceSize = isMobile ? 21 : isTablet ? 23 : 25;
     const cardPriceLineHeight = isMobile ? 22 : isTablet ? 24 : 26;
+
+    const tryRunVisibleAreaReveal = (scrollY: number): boolean => {
+        if (!shouldUseReturnEntryAnimationRef.current || visibleAreaRevealPlayedRef.current) {
+            return false;
+        }
+        if (gridTopY === null) {
+            return false;
+        }
+
+        const topInGrid = Math.max(0, scrollY - gridTopY);
+        const buffer = Math.max(120, Math.round(imageHeight * 0.2));
+        const viewTop = Math.max(0, topInGrid - buffer);
+        const viewBottom = topInGrid + windowHeight + buffer;
+        const approxCardHeight = imageHeight + 170;
+
+        const visibleRevealValues: Animated.Value[] = [];
+        filtered.forEach((item) => {
+            const cardTop = cardOffsetByIdRef.current[item.id];
+            if (!Number.isFinite(cardTop)) {
+                return;
+            }
+            const cardBottom = cardTop + approxCardHeight;
+            if (cardBottom < viewTop || cardTop > viewBottom) {
+                return;
+            }
+
+            const reveal = cardAnimById[String(item.id)];
+            if (!reveal) {
+                return;
+            }
+            reveal.setValue(0);
+            visibleRevealValues.push(reveal);
+        });
+
+        if (visibleRevealValues.length === 0) {
+            return false;
+        }
+
+        visibleAreaRevealPlayedRef.current = true;
+        Animated.stagger(
+            30,
+            visibleRevealValues.map((value) =>
+                Animated.timing(value, {
+                    toValue: 1,
+                    duration: 220,
+                    useNativeDriver: true,
+                }),
+            ),
+        ).start();
+        return true;
+    };
+
+    const scheduleVisibleAreaReveal = (scrollY: number) => {
+        if (!shouldUseReturnEntryAnimationRef.current || visibleAreaRevealPlayedRef.current) {
+            return;
+        }
+        pendingVisibleRevealScrollYRef.current = scrollY;
+
+        requestAnimationFrame(() => {
+            const pendingScrollY = pendingVisibleRevealScrollYRef.current;
+            if (pendingScrollY === null) {
+                return;
+            }
+            if (tryRunVisibleAreaReveal(pendingScrollY)) {
+                pendingVisibleRevealScrollYRef.current = null;
+            }
+        });
+    };
 
     const animateHover = (id: number, active: boolean) => {
         const key = String(id);
@@ -476,6 +558,7 @@ export default function ListingPage() {
             requestAnimationFrame(() => {
                 scrollRef.current?.scrollTo({ y: targetY, animated: false });
                 currentScrollYRef.current = targetY;
+                scheduleVisibleAreaReveal(targetY);
             });
             return;
         }
@@ -508,6 +591,7 @@ export default function ListingPage() {
             requestAnimationFrame(() => {
                 scrollRef.current?.scrollTo({ y: targetY as number, animated: false });
                 currentScrollYRef.current = targetY as number;
+                scheduleVisibleAreaReveal(targetY as number);
             });
         }
     }, [columns, filtered, gridGap, gridTopY, imageHeight, isLoading]);
@@ -528,7 +612,6 @@ export default function ListingPage() {
                 <MarketAnnouncementBar
                     compact
                     announcement={t('listing_page.announcement')}
-                    notifyText={t('listing_page.notify')}
                     currentLang={lang}
                     langOpen={langOpen}
                     langOptions={LANGUAGE_OPTIONS.map((opt) => ({ code: opt.code, label: opt.label }))}
@@ -629,6 +712,10 @@ export default function ListingPage() {
                         onOpenDetail={openDetailFromListing}
                         onCardLayout={(id, y) => {
                             cardOffsetByIdRef.current[id] = y;
+                            const pendingRevealY = pendingVisibleRevealScrollYRef.current;
+                            if (pendingRevealY !== null && tryRunVisibleAreaReveal(pendingRevealY)) {
+                                pendingVisibleRevealScrollYRef.current = null;
+                            }
                         }}
                         onGridLayout={(y) => {
                             setGridTopY(y);

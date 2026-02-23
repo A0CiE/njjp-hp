@@ -10,7 +10,6 @@ type LangOption = {
 
 type Props = {
     announcement: string;
-    notifyText: string;
     currentLang: AppLanguage;
     langOpen: boolean;
     langOptions: LangOption[];
@@ -24,7 +23,6 @@ const OFF_BEIGE = '#ECEADD';
 
 export default function MarketAnnouncementBar({
     announcement,
-    notifyText,
     currentLang,
     langOpen,
     langOptions,
@@ -83,17 +81,7 @@ export default function MarketAnnouncementBar({
             >
                 {announcement}
             </Text>
-
-            <Pressable
-                style={({ pressed, hovered }: any) => [
-                    styles.notifyBtn,
-                    compact ? styles.notifyBtnCompact : styles.notifyBtnRegular,
-                    hovered && styles.notifyBtnHovered,
-                    pressed && styles.notifyBtnPressed,
-                ]}
-            >
-                <Text style={[styles.notifyText, compact ? styles.notifyTextCompact : styles.notifyTextRegular]}>{notifyText}</Text>
-            </Pressable>
+            <View style={[styles.rightSpacer, compact ? styles.rightSpacerCompact : styles.rightSpacerRegular]} />
         </View>
     );
 }
@@ -212,36 +200,16 @@ const styles = StyleSheet.create({
         fontSize: 13,
         opacity: 0.95,
     },
-    notifyBtn: {
-        borderWidth: 1,
-        borderColor: 'rgba(51,51,52,0.4)',
-        borderRadius: 2,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'transparent',
+    rightSpacer: {
+        opacity: 0,
+        borderWidth: 0,
     },
-    notifyBtnCompact: {
-        paddingHorizontal: 14,
+    rightSpacerCompact: {
+        width: 32,
         height: 28,
     },
-    notifyBtnRegular: {
-        paddingHorizontal: 14,
+    rightSpacerRegular: {
+        width: 36,
         height: 30,
-    },
-    notifyBtnPressed: {
-        backgroundColor: 'rgba(51,51,52,0.14)',
-    },
-    notifyBtnHovered: {
-        backgroundColor: 'rgba(51,51,52,0.1)',
-        borderColor: 'rgba(51,51,52,0.55)',
-    },
-    notifyText: {
-        color: CHARCOAL,
-    },
-    notifyTextCompact: {
-        fontSize: 12,
-    },
-    notifyTextRegular: {
-        fontSize: 13,
     },
 });
